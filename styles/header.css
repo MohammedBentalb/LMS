@@ -1,0 +1,62 @@
+
+header > div {
+  width: 100%;
+}
+header > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header > div > div > div {
+  font-weight: bold;
+  color: rgb(22, 172, 218);
+  font-size: 1.2rem;
+  line-height: normal;
+}
+
+header > div > div > div {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+header button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  gap: 0.5rem;
+}
+
+header button img {
+  width: 10px;
+}
+
+.max-content {
+  max-width: 90rem;
+  width: 100%;
+}
+
+.button {
+  padding-inline: 0.5rem;
+  padding-block: 0.3rem;
+  border-radius: 0.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button::first-letter {
+  text-transform: uppercase;
+}
+
+.blue {
+  border: 2px solid rgb(22, 172, 218);
+  color: rgb(22, 172, 218);
+}
+.blue:hover {
+  border: 2px solid rgb(22, 172, 218);
+  box-shadow: 1px 1px 5px rgb(22, 172, 218);
+}
+.muted {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+}

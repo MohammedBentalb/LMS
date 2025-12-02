@@ -1,0 +1,16 @@
+.search-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #ccc;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+
+}
+.search img{
+    width: 20px;
+}
+

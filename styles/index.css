@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Geist", monospace;
+}
+
+.parent-c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+
+.table th{
+  border: 2px solid black;
+  width: fit-content;
+  padding-inline: .5rem;
+}
