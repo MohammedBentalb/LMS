@@ -1,9 +1,5 @@
 <?php
 
-// echo "<pre>";
-// var_dump($_SERVER['HTTP_USER_AGENT']);
-// echo "</pre>";
-
 $controller = $_GET['c'] ?? "courses";
 $course_id = $_GET['course_id'] ?? null;
 
