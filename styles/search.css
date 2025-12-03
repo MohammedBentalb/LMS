@@ -1,16 +1,86 @@
-.search-container{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background-color: #ccc;
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #cccccc2a;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 0.3rem;
 }
 
 .search {
-    display: flex;
-    align-items: center;
-
-}
-.search img{
-    width: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 50%;
 }
 
+.search > input {
+  background-color: transparent;
+  width: 100%;
+  height: 35px;
+  border: none;
+  outline: none;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.search > input::placeholder {
+  color: rgba(0, 0, 0, 0.671);
+  font-weight: 500;
+}
+
+.search img {
+  width: 20px;
+}
+
+.filtration {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.filtration select {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: 2px solid rgb(127, 185, 240);
+  color: rgb(127, 185, 240);
+  border-radius: 0.3rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background 0.2s linear, color 0.2s linear;
+  outline: none;
+  gap: 0.5rem;
+}
+
+.filtration img {
+  width: 10px;
+}
+.filtration div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  border: 2px solid rgb(127, 185, 240);
+  color: rgb(127, 185, 240);
+  border-radius: 0.3rem;
+  padding-inline: 0.3rem;
+  padding-block: 0.05rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background 0.2s linear, color 0.2s linear;
+  font-size: 0.9rem;
+}
+.filtration div:hover,
+.filtration select:hover {
+  border: 2px solid transparent;
+  background-color: rgb(22, 172, 218);
+  color: white;
+}
+
+.filtration div:hover img {
+  filter: invert(99%) sepia(38%) saturate(201%) hue-rotate(176deg)
+    brightness(112%) contrast(100%);
+}

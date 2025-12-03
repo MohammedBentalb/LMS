@@ -1,3 +1,6 @@
+header {
+  padding: 2rem;
+}
 
 header > div {
   width: 100%;
@@ -25,6 +28,7 @@ header button {
   align-items: center;
   background-color: transparent;
   gap: 0.5rem;
+  border-radius: 0.3rem;
 }
 
 header button img {
@@ -49,13 +53,22 @@ header button img {
 }
 
 .blue {
-  border: 2px solid rgb(22, 172, 218);
-  color: rgb(22, 172, 218);
+  border: 2px solid rgb(127, 185, 240);
+  color: rgb(127, 185, 240);
+  border-radius: 0.3rem;
+  transition: background 0.2s linear, color 0.2s linear;
 }
 .blue:hover {
-  border: 2px solid rgb(22, 172, 218);
-  box-shadow: 1px 1px 5px rgb(22, 172, 218);
+  border: 2px solid white;
+  color: white;
+  background-color: rgb(127, 185, 240);
 }
+
+.blue:hover img {
+  filter: invert(99%) sepia(38%) saturate(201%) hue-rotate(176deg)
+    brightness(112%) contrast(100%);
+}
+
 .muted {
   color: rgba(0, 0, 0, 0.5);
   font-weight: 500;

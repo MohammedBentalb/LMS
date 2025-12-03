@@ -1,0 +1,1 @@
+<div>delete course</div>

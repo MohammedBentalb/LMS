@@ -7,16 +7,22 @@
   font-family: "Geist", monospace;
 }
 
+ul{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
 .parent-c {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
 }
 
-
-.table th{
-  border: 2px solid black;
-  width: fit-content;
-  padding-inline: .5rem;
+.blue-icon {
+  filter: invert(60%) sepia(55%) saturate(5067%) hue-rotate(160deg)
+    brightness(103%) contrast(83%);
 }
