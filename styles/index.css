@@ -1,28 +1,48 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Geist", monospace;
+  font-family: "Poppins", monospace;
 }
 
-ul{
+ul {
   list-style: none;
 }
 
-a{
+a {
   text-decoration: none;
   color: inherit;
+}
+
+body {
+  background-color: whitesmoke;
+}
+
+.max-content {
+  max-width: 90rem;
+  width: 100%;
 }
 
 .parent-c {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.no-p{
+  padding-block: 0 !important;
 }
 
 .blue-icon {
   filter: invert(60%) sepia(55%) saturate(5067%) hue-rotate(160deg)
     brightness(103%) contrast(83%);
+}
+ 
+@media screen and (max-width: 53.3125rem) {
+  .parent-c {
+    padding-inline: 1rem;
+  }
 }

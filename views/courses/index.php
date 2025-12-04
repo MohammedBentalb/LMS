@@ -30,7 +30,7 @@
 
     <!-- search section -->
 
-    <div class="parent-c">
+    <div class="parent-c no-p">
       <div class="search-container max-content">
         <div class="search">
           <img src="../../assets/search-icon.png" alt="" />
@@ -47,7 +47,6 @@
         </div>
       </div>
     </div>
-
 
 
     <!-- courses content -->

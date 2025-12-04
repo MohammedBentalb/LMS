@@ -1,0 +1,201 @@
+/** #733AFF
+ */
+
+.detail-section {
+}
+
+.detail-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-block: 2rem;
+}
+
+.detail-img {
+  max-width: 600px;
+}
+
+.detail-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+}
+
+.detail-text {
+  max-width: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar-outer {
+  width: 100%;
+  height: 10px;
+  background-color: rgba(128, 128, 128, 0.205);
+  border-radius: 6px;
+}
+.progress-bar-inner {
+  width: 60%;
+  height: 100%;
+  background-color: #733aff;
+  border-radius: 6px;
+}
+
+.progress > p {
+  white-space: nowrap;
+  font: 500;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #733aff;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-info p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.655);
+}
+
+.detail-info h2 {
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+.detail-info h2:first-letter {
+  text-transform: capitalize;
+}
+
+.detail-info > p::first-letter {
+  text-transform: capitalize;
+}
+
+.detail-info > p {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.655);
+}
+.detail-stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.stat-d {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  gap: 0.5rem;
+}
+
+.stat-d span {
+  background-color: #733aff;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.2rem;
+}
+
+.stat-d img {
+  width: 16px;
+  filter: invert(99%) sepia(38%) saturate(201%) hue-rotate(176deg)
+    brightness(112%) contrast(100%);
+}
+
+.detail-text > button {
+  height: 40px;
+  background-color: #733aff;
+  border: 2px solid #733aff;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 0.4rem;
+  margin-top: 10px;
+  transition: background 0.2s linear, color 0.2s linear;
+  cursor: pointer;
+}
+
+.detail-text > button:hover {
+  color: #733aff;
+  background-color: white;
+}
+
+/**/
+
+.detail-sections {
+  padding: 0;
+}
+
+.detail-sections-list {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.detail-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  text-align: center;
+  background-color: white;
+  border-radius: .5rem;
+  padding-inline: 1rem;
+  padding-block: 1.5rem;
+  transition: scale .2s linear;
+}
+.detail-section:hover {
+  scale: 1.01;
+}
+
+.detail-section > div h3{
+  font-weight: bold;
+  color: #733aff;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.detail-section > div p{
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+    color: rgba(0, 0, 0, 0.655);
+    font-weight: 500;
+    font-size: .8rem;
+}
+.detail-section > button{
+  border: none;
+  background-color: transparent;
+  white-space: nowrap;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  transition: color .2s linear;
+  cursor: pointer;
+}
+.detail-section > button img{
+  width: 18px;
+  transition: all .2s linear;
+}
+.detail-section > button:hover{
+  color: #733aff;
+}
+.detail-section > button:hover img{
+  filter: invert(25%) sepia(69%) saturate(4864%) hue-rotate(251deg) brightness(100%) contrast(103%);
+}

@@ -12,7 +12,7 @@ header > div > div {
 }
 header > div > div > div {
   font-weight: bold;
-  color: rgb(22, 172, 218);
+  color: #733aff;
   font-size: 1.2rem;
   line-height: normal;
 }
@@ -35,11 +35,6 @@ header button img {
   width: 10px;
 }
 
-.max-content {
-  max-width: 90rem;
-  width: 100%;
-}
-
 .button {
   padding-inline: 0.5rem;
   padding-block: 0.3rem;
@@ -53,15 +48,15 @@ header button img {
 }
 
 .blue {
-  border: 2px solid rgb(127, 185, 240);
-  color: rgb(127, 185, 240);
+  border: 2px solid #733aff;
+  color: #733aff;
   border-radius: 0.3rem;
   transition: background 0.2s linear, color 0.2s linear;
 }
 .blue:hover {
   border: 2px solid white;
   color: white;
-  background-color: rgb(127, 185, 240);
+  background-color: #733aff;
 }
 
 .blue:hover img {
