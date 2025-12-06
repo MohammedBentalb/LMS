@@ -30,3 +30,9 @@ CREATE TABLE sections(
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE,
     CONSTRAINT unique_section_position UNIQUE(course_id, position)
 ) -- CREATING SECTIONS TABLE WITH course_id AS A FOREIGN KEY THAT DELETS A CHILED WHEN THE PARENT IS GONE, ALSO ADDING A UNIQUE COURSE ID AND POSITION RELATION TO AVOID HAVING 2 SECTIONS AT THE SAME POSITION 
+
+ALTER TABLE courses
+ADD COLUMN level VARCHAR(255) NOT NULL,
+ADD COLUMN course_type VARCHAR(255) NOT NULL,
+ADD CONSTRAINT check_level_value CHECK(level IN ('beginner', 'intermediate', 'advanced')),
+ADD CONSTRAINT check_type_value CHECK(course_type IN ('document', 'bootcamp', 'servey'));

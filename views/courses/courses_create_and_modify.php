@@ -29,9 +29,9 @@
         <div class="form-field">
             <label for="course-level">What skill level is this course</label>
             <select name="select-level" id="course-level">
-                <option value="Beginner">Beginner</option>
-                <option value="Ontermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
             </select>
             <p class="error-field is-hidden" data-error-name="type">ana mol error ana</p>
         </div>
