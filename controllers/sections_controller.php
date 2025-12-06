@@ -3,7 +3,7 @@
 $action = $_GET['action'] ?? "list";
 
 switch($action){
-    case "add":
+    case "create":
         require("../brief-7/views/sections/sections_create.php");
         break;
     case "edit":

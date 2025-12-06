@@ -2,7 +2,7 @@
             <?php
             foreach($courses as $key => $val){  ?>
             <li class="">
-                <a href="?c=courses&<?="action=detail&course_id={$val["id"]}"?>>" class="course">
+                <a href="?v=courses&<?="action=detail&course_id={$val["id"]}"?>>" class="course">
                     <div class="course-img">
                         <p><?= $val['level'] ?? "document" ?></p>
                         <img src="../../assets/1.jpg" alt="">

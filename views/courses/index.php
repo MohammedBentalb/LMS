@@ -11,14 +11,17 @@
   </head>
   <body>
     <!-- header section -->
+    <?php include_once("./views/components/header.php"); ?>
     <header class="parent-c">
       <div class="max-content">
         <div>
           <h1>Explore</h1>
           <div>
-            <button class="button blue">
-              create new course
-            </button>
+            <a href="?v=courses&action=create">
+              <button class="button blue">
+                create new course
+              </button>
+            </a>
           </div>
         </div>
         <p class="muted">

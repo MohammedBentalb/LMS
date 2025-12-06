@@ -11,8 +11,8 @@ switch($action){
         $courseSections = getCourseSections($course_id);
         require("../brief-7/views/courses/course_details.php");
         break;
-    case "add":
-        require("../brief-7/views/courses/courses_create.php");
+    case "create":
+        require("../brief-7/views/courses/courses_create_and_modify.php");
         break;
     case "edit":
         require("../brief-7/views/courses/courses_edit.php");

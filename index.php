@@ -1,6 +1,6 @@
 <?php
 
-$controller = $_GET['c'] ?? "courses";
+$controller = $_GET['v'] ?? "courses";
 $course_id = $_GET['course_id'] ?? null;
 
 switch($controller){

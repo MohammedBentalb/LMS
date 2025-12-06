@@ -8,7 +8,7 @@
     <title>LMS | course details </title>
 </head>
 <body>
-    <!-- <?php echo (explode(" ", $course[0]["UPDATED_AT"])[0]) ?? "what???!!"?>  -->
+    <?php include_once("./views/components/header.php"); ?>
     <section class="course-detail-section parent-c no-p">
         <div class="detail-container max-content">
             <div class="detail-img">
@@ -49,41 +49,6 @@
             <?php 
             }
             ?>
-            <!-- <div class="detail-section ">
-                <div>
-                    <h3>intro to html</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quidem commodi in debitis aut unde.</p>
-                </div>
-                <button>see more <img src="../../assets/arrow-left.png" alt=""></button>
-            </div>
-            <div class="detail-section ">
-                <div>
-                    <h3>intro to html</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quidem commodi in debitis aut unde.</p>
-                </div>
-                <button>see more <img src="../../assets/arrow-left.png" alt=""></button>
-            </div>
-            <div class="detail-section ">
-                <div>
-                    <h3>intro to html</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quidem commodi in debitis aut unde.</p>
-                </div>
-                <button>see more <img src="../../assets/arrow-left.png" alt=""></button>
-            </div>
-            <div class="detail-section ">
-                <div>
-                    <h3>intro to html</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quidem commodi in debitis aut unde.</p>
-                </div>
-                <button>see more <img src="../../assets/arrow-left.png" alt=""></button>
-            </div>
-            <div class="detail-section ">
-                <div>
-                    <h3>intro to html</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, quidem commodi in debitis aut unde.</p>
-                </div>
-                <button>see more <img src="../../assets/arrow-left.png" alt=""></button>
-            </div> -->
         </div>
     </section>
 </body>

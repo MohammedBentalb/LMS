@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -32,17 +32,55 @@ body {
   padding: 2rem;
 }
 
-.no-p{
+.no-p {
   padding-block: 0 !important;
 }
 
 .blue-icon {
-  filter: invert(60%) sepia(55%) saturate(5067%) hue-rotate(160deg)
-    brightness(103%) contrast(83%);
+  filter: invert(30%) sepia(79%) saturate(5937%) hue-rotate(251deg)
+    brightness(101%) contrast(102%);
 }
- 
+
 @media screen and (max-width: 53.3125rem) {
   .parent-c {
     padding-inline: 1rem;
   }
+}
+
+.header {
+  background-color: white;
+  padding-block: 1rem;
+}
+
+.header > div a span {
+  color: #733aff;
+}
+
+.header > div a {
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 2rem;
+}
+
+.header > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header > div > div button {
+  padding-inline: 1.5rem;
+  padding-block: .1rem;
+  background-color: #733aff;
+  border: 2px solid #733aff;
+  border-radius: 0.3rem;
+  text-transform: capitalize;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s linear, color 0.2s linear;
+  font-size: 1.02rem;
+}
+.header > div > div button:hover {
+  background-color: white;
+  color: #733aff;
 }
