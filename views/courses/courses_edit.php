@@ -1,3 +1,3 @@
 <form action="">
-    <button>edite course</button>
+    <button>edit course</button>
 </form>
