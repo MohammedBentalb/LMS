@@ -33,6 +33,10 @@
                 <button>start the course</button>
             </div>
         </div>
+        <div class="max-content course-actions">
+            <a class="edit-btn" href="?v=courses&action=form&course_id=<?=$course[0]['id']?>">edit <img src="../../assets/edit.png" alt="edit course"> </a>
+            <a class="delete-btn">delete <img src="../../assets/delete.png" alt="delete course"></a>
+        </div>
     </section>
     <section class="parent-c">
         <h2 class="max-content">What you will be learning</h2>

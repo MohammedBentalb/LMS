@@ -11,7 +11,7 @@ switch($action){
         require("./controllers/courses/create_controller.php");        
         break;
     case "edit":
-        require("./controllers/courses/form_controller.php");
+        require("./controllers/courses/edit_controller.php");
         break;
     case "delete":
         require("./controllers/courses/delete_controller.php");

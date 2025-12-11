@@ -1,19 +1,32 @@
-import { validateAndShowError, watchElementAndValidate } from "../validation/validation.js";
+import {
+  validateAndShowError,
+  watchElementAndValidate,
+  editeValidatingImage,
+} from "../validation/validation.js";
 
 const courseForm = document.querySelector("form");
 const courseTitle = document.querySelector("#course-title");
 const courseType = document.querySelector("#course-type");
 const courseLevel = document.querySelector("#course-level");
 const courseContent = document.querySelector("#course-content");
-const courseImage= document.querySelector("#course-image");
+const courseImage = document.querySelector("#course-image");
 
 let errorArray = [];
+const params = new URLSearchParams(window.location.search);
+
+console.log(params)
+console.log(params.get('course_id'))
+console.log(isNaN(Number(params.get('course_id'))))
+console.log(params.get('course_id'))
+console.log(
+  params.get("course_id") === null && !isNaN(Number(params.get("course_id")))
+);
 
 watchElementAndValidate(courseTitle);
 watchElementAndValidate(courseType);
 watchElementAndValidate(courseLevel);
 watchElementAndValidate(courseContent);
-watchElementAndValidate(courseImage);
+(params.get('course_id') === null) ? watchElementAndValidate(courseImage) : editeValidatingImage(courseImage);
 
 courseForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -21,7 +34,7 @@ courseForm.addEventListener("submit", function (e) {
   errorArray = validateAndShowError(courseLevel, errorArray);
   errorArray = validateAndShowError(courseType, errorArray);
   errorArray = validateAndShowError(courseContent, errorArray);
-  errorArray = validateAndShowError(courseImage, errorArray);
+  if(params.get('course_id') === null) errorArray = validateAndShowError(courseImage, errorArray);
 
   if (errorArray.length === 0) {
     this.submit();

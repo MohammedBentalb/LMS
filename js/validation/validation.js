@@ -34,8 +34,6 @@ export function validatingFormInput(element) {
       return "incorrect file format";
     }
     preview.src = URL.createObjectURL(element.files[0]);
-    console.log(preview);
-
     parentpreview.classList.remove("is-hidden");
     element.previousElementSibling.classList.add("full");
     element.previousElementSibling.classList.remove("empty");
@@ -56,4 +54,27 @@ export function showFieldError(fieldName, msg) {
   targetField.classList.toggle("wrong-content", msg.trim() !== "");
 }
 
-function handleImageErrorState(parentPreview, preview) {}
+export function editeValidatingImage(element) {
+  const editField = document.querySelector(".edit-image-field");
+  editField.classList.remove("is-hidden");
+  editField.style.color = "green";
+  const AllowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+  const preview = document.querySelector(".preview-image img");
+
+  element.addEventListener("change", function () {
+    if (
+      element.files.length === 0 ||
+      !AllowedTypes.includes(element.files[0].type)
+    ) {
+      element.previousElementSibling.classList.remove("full");
+      editField.textContent = "Old image will persist if not changed";
+      preview.src = '../../assets/1.jpg';
+      preview.classList.add('is-hidden')
+      return;
+    }
+    preview.src = URL.createObjectURL(element.files[0]);
+    preview.classList.remove('is-hidden')
+    element.previousElementSibling.classList.add("full");
+    editField.textContent = "New image will be sent";
+  });
+}

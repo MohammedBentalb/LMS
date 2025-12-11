@@ -27,13 +27,24 @@
     }
     
     
-    function insertSingleCourse($title, $disc, $level, $type, $image){
+    function insertSingleCourse($title, $desc, $level, $type, $image){
         global $conn;
         $stm = mysqli_prepare($conn, "INSERT INTO courses (title, description, level, course_type, image) VALUES (?, ?, ?, ?, ?)");
         if(!$stm){
             return false;
         }
-        mysqli_stmt_bind_param($stm, "sssss", $title, $disc, $level, $type, $image);
+        mysqli_stmt_bind_param($stm, "sssss", $title, $desc, $level, $type, $image);
+        mysqli_stmt_execute($stm);
+        return true;
+    }
+
+    function updateSingleCourse($title, $desc, $level, $type, $image, $course_id){
+        global $conn;
+        $stm = mysqli_prepare($conn, "UPDATE  courses SET title = ? , description = ?, level = ? , course_type = ?, image = ? WHERE id = ?");
+        if(!$stm){
+            return false;
+        }
+        mysqli_stmt_bind_param($stm, "sssssi", $title, $desc, $level, $type, $image, $course_id);
         mysqli_stmt_execute($stm);
         return true;
     }
