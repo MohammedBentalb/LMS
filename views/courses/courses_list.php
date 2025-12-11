@@ -5,7 +5,7 @@
                 <a href="?v=courses&<?="action=detail&course_id={$val["id"]}"?>>" class="course">
                     <div class="course-img">
                         <p><?= $val['level'] ?? "document" ?></p>
-                        <img src="../../assets/1.jpg" alt="">
+                        <img src="../../public/images/<?= $val['image']?>" alt="">
                     </div>
                     <p class="course-title"><?= $val['title']?></p>
                     <p class="course-type"><?= $val['type'] ?? "document" ?></p>

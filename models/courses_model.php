@@ -25,6 +25,18 @@
         $preresult = mysqli_stmt_get_result($stm);
         return $result = mysqli_fetch_all($preresult, MYSQLI_ASSOC);
     }
+    
+    
+    function insertSingleCourse($title, $disc, $level, $type, $image){
+        global $conn;
+        $stm = mysqli_prepare($conn, "INSERT INTO courses (title, description, level, course_type, image) VALUES (?, ?, ?, ?, ?)");
+        if(!$stm){
+            return false;
+        }
+        mysqli_stmt_bind_param($stm, "sssss", $title, $disc, $level, $type, $image);
+        mysqli_stmt_execute($stm);
+        return true;
+    }
 
 
     // function getSingleCourseWithSection($id){

@@ -12,7 +12,7 @@
     <section class="course-detail-section parent-c no-p">
         <div class="detail-container max-content">
             <div class="detail-img">
-                <img src="../../assets/2.jpg" alt="">
+                <img src="../../public/images/<?= $course[0]['image']?>"  alt="">
             </div>
             <div class="detail-text">
                 <div class="progress">
@@ -22,7 +22,7 @@
                     <p>%60 watched</p>
                 </div>
                 <div class="detail-info">
-                    <p>Last updated: <?= explode(" ", $course[0]["UPDATED_AT"])[0] ?></p>
+                    <p>Last updated: <?= explode(" ", $course[0]["updated_at"])[0] ?></p>
                     <h2><?= $course[0]['title'] ?></h2>
                     <p><?= $course[0]["description"]?></p>
                 </div>
@@ -34,7 +34,7 @@
             </div>
         </div>
     </section>
-    <section class="parent-c no-p">
+    <section class="parent-c">
         <h2 class="max-content">What you will be learning</h2>
         <div class="detail-sections-list max-content">
             <?php

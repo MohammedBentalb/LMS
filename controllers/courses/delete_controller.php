@@ -1,3 +1,3 @@
 <?php
 
-require_once("./models/courses_model.php");
+require_once("./models/course_model.php");

@@ -4,8 +4,11 @@ switch($action){
     case "detail":
         require("./controllers/courses/detail_controller.php");
         break;
+    case "form":
+        require("./controllers/courses/form_controller.php");
+        break;
     case "create":
-        require("./controllers/courses/form_controller.php");        
+        require("./controllers/courses/create_controller.php");        
         break;
     case "edit":
         require("./controllers/courses/form_controller.php");

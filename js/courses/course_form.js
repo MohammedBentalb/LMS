@@ -21,6 +21,7 @@ courseForm.addEventListener("submit", function (e) {
   errorArray = validateAndShowError(courseLevel, errorArray);
   errorArray = validateAndShowError(courseType, errorArray);
   errorArray = validateAndShowError(courseContent, errorArray);
+  errorArray = validateAndShowError(courseImage, errorArray);
 
   if (errorArray.length === 0) {
     this.submit();

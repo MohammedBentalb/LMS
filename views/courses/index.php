@@ -17,7 +17,7 @@
         <div>
           <h1>Explore</h1>
           <div>
-            <a href="?v=courses&action=create">
+            <a href="?v=courses&action=form">
               <button class="button blue">
                 create new course
               </button>
