@@ -35,14 +35,14 @@
         </div>
         <div class="max-content course-actions">
             <a class="edit-btn" href="?v=courses&action=form&course_id=<?=$course[0]['id']?>">edit <img src="../../assets/edit.png" alt="edit course"> </a>
-            <a class="delete-btn">delete <img src="../../assets/delete.png" alt="delete course"></a>
+            <a class="delete-btn" href="?v=courses&action=delete&course_id=<?=$course[0]['id']?>">delete <img src="../../assets/delete.png" alt="delete course"></a>
         </div>
     </section>
     <section class="parent-c">
         <h2 class="max-content">What you will be learning</h2>
         <div class="detail-sections-list max-content">
             <?php
-            foreach($courseSections as $key => $val){ ?>
+                foreach($courseSections as $key => $val){ ?>
             <div class="detail-section ">
                 <div>
                     <h3><?= $val['title'] ?></h3>
@@ -51,7 +51,7 @@
                 <button>see more <img src="../../assets/arrow-left.png" alt=""></button>
             </div>
             <?php 
-            }
+                }
             ?>
         </div>
     </section>

@@ -14,14 +14,6 @@ const courseImage = document.querySelector("#course-image");
 let errorArray = [];
 const params = new URLSearchParams(window.location.search);
 
-console.log(params)
-console.log(params.get('course_id'))
-console.log(isNaN(Number(params.get('course_id'))))
-console.log(params.get('course_id'))
-console.log(
-  params.get("course_id") === null && !isNaN(Number(params.get("course_id")))
-);
-
 watchElementAndValidate(courseTitle);
 watchElementAndValidate(courseType);
 watchElementAndValidate(courseLevel);

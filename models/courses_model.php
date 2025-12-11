@@ -49,7 +49,17 @@
         return true;
     }
 
-
+    function deleteSingleCourse($course_id){
+        global $conn;
+        $stm = mysqli_prepare($conn, "DELETE FROM courses WHERE id = ?");
+        if(!$stm){
+            return false;
+        }
+        mysqli_stmt_bind_param($stm, "i", $course_id);
+        mysqli_stmt_execute($stm);
+        return true;
+    }
+    
     // function getSingleCourseWithSection($id){
     //     global $conn;
     //     $stm = mysqli_prepare($conn, "SELECT c.*, c.id AS course_id, s.*, s.id AS section_id FROM courses c JOIN sections s on c.id = s.course_id WHERE c.id = ?;");
