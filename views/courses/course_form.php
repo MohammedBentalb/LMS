@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../styles/index.css" />
-    <link rel="stylesheet" href="../../styles/course_form.css" />
+    <link rel="stylesheet" href="../../styles/forms.css" />
     <title>LMS | create a course</title>
 </head>
 <body>

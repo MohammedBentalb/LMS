@@ -7,7 +7,7 @@ $course = null;
 if(is_numeric($course_id)){
     $course = getSingleCourse($course_id);
     if(empty($course)) {
-        require_once('./views/courses/error_edite.php');
+        require_once('./views/error/error_edit.php');
         return;
     };
     $editMode = true;

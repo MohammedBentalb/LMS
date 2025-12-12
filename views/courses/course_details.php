@@ -41,18 +41,11 @@
     <section class="parent-c">
         <h2 class="max-content">What you will be learning</h2>
         <div class="detail-sections-list max-content">
-            <?php
-                foreach($courseSections as $key => $val){ ?>
-            <div class="detail-section ">
-                <div>
-                    <h3><?= $val['title'] ?></h3>
-                    <p><?= $val['content'] ?></p>
-                </div>
-                <button>see more <img src="../../assets/arrow-left.png" alt=""></button>
-            </div>
-            <?php 
-                }
-            ?>
+            <?php require_once('./views/sections/sections_list.php'); ?>
+            <a class="add-section" href="?v=sections&action=form&course_id=<?= $course_id ?>">
+                <img src="../../assets/add.png" alt="add section"></button>
+                <p>add new section</p>  
+            </a>
         </div>
     </section>
 </body>

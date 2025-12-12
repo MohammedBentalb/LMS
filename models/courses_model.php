@@ -11,7 +11,9 @@
         
         mysqli_stmt_execute($stm);
         $preresult = mysqli_stmt_get_result($stm);
-        return $result = mysqli_fetch_all($preresult, MYSQLI_ASSOC);
+        $result = mysqli_fetch_all($preresult, MYSQLI_ASSOC);
+        mysqli_stmt_close($stm);
+        return $result;
     }
 
     function getSingleCourse($id){
@@ -23,7 +25,9 @@
         mysqli_stmt_bind_param($stm, "i", $id);
         mysqli_stmt_execute($stm);
         $preresult = mysqli_stmt_get_result($stm);
-        return $result = mysqli_fetch_all($preresult, MYSQLI_ASSOC);
+        $result = mysqli_fetch_all($preresult, MYSQLI_ASSOC);
+        mysqli_stmt_close($stm);
+        return $result;
     }
     
     
@@ -34,8 +38,9 @@
             return false;
         }
         mysqli_stmt_bind_param($stm, "sssss", $title, $desc, $level, $type, $image);
-        mysqli_stmt_execute($stm);
-        return true;
+        $status = mysqli_stmt_execute($stm);
+        mysqli_stmt_close($stm);
+        return $status;
     }
 
     function updateSingleCourse($title, $desc, $level, $type, $image, $course_id){
@@ -45,8 +50,9 @@
             return false;
         }
         mysqli_stmt_bind_param($stm, "sssssi", $title, $desc, $level, $type, $image, $course_id);
-        mysqli_stmt_execute($stm);
-        return true;
+        $status = mysqli_stmt_execute($stm);
+        mysqli_stmt_close($stm);
+        return $status;
     }
 
     function deleteSingleCourse($course_id){
@@ -56,8 +62,9 @@
             return false;
         }
         mysqli_stmt_bind_param($stm, "i", $course_id);
-        mysqli_stmt_execute($stm);
-        return true;
+        $status = mysqli_stmt_execute($stm);
+        mysqli_stmt_close($stm);
+        return $status;
     }
     
     // function getSingleCourseWithSection($id){

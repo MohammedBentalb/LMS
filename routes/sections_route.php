@@ -5,14 +5,17 @@ switch($action){
         require("./controllers/sections/detail_controller.php");
         break;
     case "create":
-        require("./controllers/sections/form_controller.php");        
+        require("./controllers/sections/create_controller.php");        
         break;
     case "edit":
+        require("./controllers/sections/edit_controller.php");
+        break;
+    case "form":
         require("./controllers/sections/form_controller.php");
         break;
     case "delete":
         require("./controllers/sections/delete_controller.php");
         break;
     default:
-        require("./controllers/sections/list_contaroller.php");
+        header("Location: index.php");
 }

@@ -27,3 +27,16 @@ function getSingleSection($section_id){
     $preresult = mysqli_stmt_get_result($stm);
     return $result = mysqli_fetch_all($preresult, MYSQLI_ASSOC);
 }
+
+function insertSingleSection($course_id, $title, $content, $position){
+    global $conn;
+
+    $stm = mysqli_prepare($conn, "INSERT INTO sections (course_id, title, content, position) VALUES(?, ?, ?, ?)");
+    if(!$stm){
+        die("get course sections has failed");
+    }
+    mysqli_stmt_bind_param($stm, 'issi', $course_id, $title, $content, $position);
+    $status = mysqli_stmt_execute($stm);
+    mysqli_stmt_close($stm);
+    return $status;
+}

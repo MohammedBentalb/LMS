@@ -146,8 +146,10 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
+
 .detail-section {
   width: 100%;
+  min-height: 130px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -159,6 +161,7 @@
   padding-block: 1.5rem;
   transition: scale 0.2s linear;
 }
+
 .detail-section:hover {
   scale: 1.01;
 }
@@ -197,7 +200,7 @@
 .detail-section > button:hover {
   color: #733aff;
 }
-.detail-text > button:hover img {
+.detail-section > button:hover img{
   filter: invert(25%) sepia(69%) saturate(4864%) hue-rotate(251deg)
     brightness(100%) contrast(103%);
 }
@@ -241,7 +244,6 @@
   width: 16px;
 }
 
-
 .course-actions a:hover {
   color: black;
   background-color: white;
@@ -249,4 +251,56 @@
 .course-actions a:hover > img {
   filter: invert(99%) sepia(5%) saturate(247%) hue-rotate(114deg)
     brightness(113%) contrast(100%);
+}
+
+@media screen and (max-width: 1156px) {
+  .detail-sections-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .detail-sections-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .detail-sections-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.add-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: .5rem;
+  background-color: white;
+  transition: background .2s linear;
+}
+
+.add-section img {
+  width: 36px;
+  transition: all .2s linear;
+}
+
+.add-section p {
+  text-transform: capitalize;
+  font-size: .9rem;
+  font-weight: 500;
+}
+
+.add-section:hover {
+  background-color: #733aff;
+}
+.add-section:hover img{
+  scale: 1.1;
+  filter: invert(100%) sepia(58%) saturate(2%) hue-rotate(303deg) brightness(105%) contrast(101%);
+}
+
+.add-section:hover p{
+  color: white;
 }
