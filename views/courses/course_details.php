@@ -8,7 +8,11 @@
     <title>LMS | course details </title>
 </head>
 <body>
-    <?php include_once("./views/components/header.php"); ?>
+    <?php
+        require_once("./views/components/header.php");
+        require_once("./views/components/Back.php");
+        require_once("./util/functions/formatDate.php");
+    ?>
     <section class="course-detail-section parent-c no-p">
         <div class="detail-container max-content">
             <div class="detail-img">
@@ -22,7 +26,8 @@
                     <p>%60 watched</p>
                 </div>
                 <div class="detail-info">
-                    <p>Last updated: <?= explode(" ", $course[0]["updated_at"])[0] ?></p>
+                    <!-- <p>Last updated: <?= explode(" ", $course[0]["updated_at"])[0] ?></p> -->
+                    <p><?= castDate($course[0]["updated_at"], true)?></p> 
                     <h2><?= $course[0]['title'] ?></h2>
                     <p><?= $course[0]["description"]?></p>
                 </div>

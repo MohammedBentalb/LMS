@@ -182,7 +182,7 @@
   font-weight: 500;
   font-size: 0.8rem;
 }
-.detail-section > button {
+.detail-section > a {
   border: none;
   background-color: transparent;
   white-space: nowrap;
@@ -193,14 +193,14 @@
   transition: color 0.2s linear;
   cursor: pointer;
 }
-.detail-section > button img {
+.detail-section > a img {
   width: 18px;
   transition: all 0.2s linear;
 }
-.detail-section > button:hover {
+.detail-section > a:hover {
   color: #733aff;
 }
-.detail-section > button:hover img{
+.detail-section > a:hover img{
   filter: invert(25%) sepia(69%) saturate(4864%) hue-rotate(251deg)
     brightness(100%) contrast(103%);
 }
@@ -214,44 +214,6 @@
   }
 }
 
-.course-actions {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-}
-
-.course-actions a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-inline: 1rem;
-  padding-block: 0.2rem;
-  border-radius: 0.5rem;
-  text-transform: capitalize;
-  font-weight: 500;
-  border: 2px solid black;
-  background-color: black;
-  color: white;
-  transition: background 0.2s linear, color 0.2s linear;
-  cursor: pointer;
-}
-.course-actions a:first-child {
-  align-items: baseline;
-}
-
-.course-actions a img {
-  width: 16px;
-}
-
-.course-actions a:hover {
-  color: black;
-  background-color: white;
-}
-.course-actions a:hover > img {
-  filter: invert(99%) sepia(5%) saturate(247%) hue-rotate(114deg)
-    brightness(113%) contrast(100%);
-}
 
 @media screen and (max-width: 1156px) {
   .detail-sections-list {

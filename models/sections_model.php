@@ -18,7 +18,7 @@ function getCourseSections($course_id){
 function getSingleSection($section_id){
     global $conn;
 
-    $stm = mysqli_prepare($conn, "SELECT * FROM sections WHERE id = ?");
+    $stm = mysqli_prepare($conn, "SELECT s.id, s.course_id, s.title, s.content, s.created_at, s.updated_at, c.level, c.course_type FROM sections s JOIN courses c ON c.id = s.course_id WHERE s.id = ?;");
     if(!$stm){
         die("get course sections has failed");
     }

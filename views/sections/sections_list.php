@@ -5,7 +5,7 @@
                     <h3><?= $val['title'] ?></h3>
                     <p><?= $val['content'] ?></p>
                 </div>
-                <button>see more <img src="../../assets/arrow-left.png" alt=""></button>
+                <a href="?v=sections&action=detail&section_id=<?= $val['id'] ?>">see more <img src="../../assets/arrow-left.png" alt="arrow icon"></a>
             </div>
 <?php 
         }

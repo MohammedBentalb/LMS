@@ -8,7 +8,10 @@
     <title>LMS | create a section</title>
 </head>
 <body>
-    <?php include_once("./views/components/header.php");?>
+    <?php
+     include_once("./views/components/header.php");
+     include_once("./views/components/Back.php");
+    ?>
     <section class="parent-c">
     <h1 class="form-title max-content"><?= $sEditMode ? "Improve This Section" : "Build Your Course Sections" ?></h1>
     <p class="form-sub-title max-content"><?= $sEditMode ? "Refine the content and keep your course sharp" : "Break your course into clear, engaging parts" ?></p>
@@ -29,9 +32,7 @@
             <textarea name="section-content[]" id="section-content"><?= $sEditMode ? $section[0]['description'] : '' ?></textarea>
             <p class="error-field is-hidden" data-error-name="content"></p>
         </div>
-        <div class="new-sections">
-
-        </div>
+        <div class="new-sections"></div>
         <button type="button" class="add-new-section">add section</button>
         <button>Create section</button>
     </form>

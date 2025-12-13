@@ -4,11 +4,11 @@
             <li class="">
                 <a href="?v=courses&<?="action=detail&course_id={$val["id"]}"?>>" class="course">
                     <div class="course-img">
-                        <p><?= $val['level'] ?? "document" ?></p>
+                        <p><?= $val['level'] ?></p>
                         <img src="../../public/images/<?= $val['image']?>" alt="">
                     </div>
                     <p class="course-title"><?= $val['title']?></p>
-                    <p class="course-type"><?= $val['type'] ?? "document" ?></p>
+                    <p class="course-type"><?= $val['course_type'] ?></p>
                 </a>
             </li>
             <?php

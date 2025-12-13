@@ -8,7 +8,10 @@
     <title>LMS | create a course</title>
 </head>
 <body>
-    <?php include_once("./views/components/header.php");?>
+    <?php
+     include_once("./views/components/header.php");
+     include_once("./views/components/Back.php");
+    ?>
     <section class="parent-c">
     <h1 class="form-title max-content"><?= $editMode ? "Refine your course" : "Create the course you always wanted" ?></h1>
     <p class="form-sub-title max-content"><?= $editMode ? "Keep your knowledge fresh and up to date" : "Share your knowledge on a large scale" ?></p>

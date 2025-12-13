@@ -1,0 +1,55 @@
+.detail-container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.detail-container  p {
+  color: rgb(97, 97, 97);
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.detail-container h1 {
+
+}
+
+.detail-container > div {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.detail-container > div a {
+    font-weight: 500;
+    color: #733aff;
+    text-transform: capitalize;
+    text-decoration: underline;
+    text-decoration-color: #733aff;
+    text-decoration-thickness: 2px;
+}
+.detail-container > div img {
+    width: 16px;
+}
+
+.detail-container > div p::first-letter {
+  text-transform: capitalize;
+}
+.detail-container > div p {
+    font-size: 0.8rem;
+    color: rgb(97, 97, 97);
+}
+
+.detail-container button {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  text-decoration: underline;
+  width: fit-content;
+  transition: color .2s linear;
+  cursor: pointer;
+}
+.detail-container button:hover {
+  color: #733aff;
+}
