@@ -8,7 +8,6 @@ $editMode = false;
 $sEditMode = false;
 $positionError= null;
 
-
 switch($controller){
     case "sections":
         require("./routes/sections_route.php");
