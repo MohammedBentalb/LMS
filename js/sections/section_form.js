@@ -13,16 +13,24 @@ const addSectionButton = document.querySelector(".add-new-section");
 const newSectionsContainer = document.querySelector(".new-sections");
 const originalfileds = document.querySelectorAll(".form-field");
 const fakeFields = [];
+const positions = document.querySelector(".positions").textContent;
 
 originalfileds.forEach((field) => {
   fakeFields.push(field);
 });
 
+let j = 0;
+const initializePositions = positions.split(",").map((p) => {
+  j++;
+  return { input: `predefined-${j}`,  position: p };
+});
+
 const state = {
   errorArray: [],
-  positionArray: [],
+  positionArray: positions ? initializePositions : [],
 };
 
+console.log(state.positionArray)
 let newSectionsCounter = 0;
 
 watchElementAndValidate(sectionTitle);
@@ -55,7 +63,11 @@ sectionForm.addEventListener("submit", function (e) {
   e.preventDefault();
   state.errorArray = validateAndShowError(sectionTitle, state.errorArray);
   state.errorArray = validateAndShowError(sectionContent, state.errorArray);
-  const { errArray } = validatingPosition( sectionPosition, state.errorArray, state.positionArray );
+  const { errArray } = validatingPosition(
+    sectionPosition,
+    state.errorArray,
+    state.positionArray
+  );
   state.errorArray = [...errArray];
 
   console.log("we ran");

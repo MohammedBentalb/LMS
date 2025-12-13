@@ -52,3 +52,16 @@ function deleteSingleSection($section_id){
     mysqli_stmt_close($stm);
     return $status;
 }
+
+function getAllPositionOfSections($course_id){
+    global $conn;
+
+    $stm = mysqli_prepare($conn, "SELECT position FROM `sections` WHERE course_id = ?;");
+    if(!$stm){
+        die("get course sections has failed");
+    }
+    mysqli_stmt_bind_param($stm, 'i', $course_id);
+    mysqli_stmt_execute($stm);
+    $preresult = mysqli_stmt_get_result($stm);
+    return $result = mysqli_fetch_all($preresult, MYSQLI_ASSOC);
+}

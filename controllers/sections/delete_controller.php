@@ -8,14 +8,12 @@ if(!isset($_GET['section_id'])) {
 }
 
 $foundSection = getSingleSection($_GET['section_id']);
-
 if(empty($foundSection)){
     require_once('./views/error/error.php');
     return;
 }
 
 $done = deleteSingleSection($_GET['section_id']);
-
 if($done){
     header("location: index.php");
 }

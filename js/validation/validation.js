@@ -91,8 +91,9 @@ export function validatingPosition(element, errorArr, positionArray) {
   }
   
   const foundDouble = positionArray.find(p => p.position === element.value.trim())
+
   if(foundDouble){
-    showFieldError(fieldName, `Can't accept duplicated position: ${element.value.trim()}`);
+    showFieldError(fieldName, `position taken: ${element.value.trim()}`);
     return {errArray: errorArr.includes(fieldName) ? errorArr : [...errorArr, fieldName], positionArray};
   }
 
