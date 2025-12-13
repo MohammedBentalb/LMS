@@ -40,3 +40,15 @@ function insertSingleSection($course_id, $title, $content, $position){
     mysqli_stmt_close($stm);
     return $status;
 }
+
+function deleteSingleSection($section_id){
+    global $conn;
+    $stm = mysqli_prepare($conn, "DELETE FROM sections WHERE id = ?");
+    if(!$stm){
+        return false;
+    }
+    mysqli_stmt_bind_param($stm, "i", $section_id);
+    $status = mysqli_stmt_execute($stm);
+    mysqli_stmt_close($stm);
+    return $status;
+}

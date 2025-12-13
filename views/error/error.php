@@ -13,7 +13,7 @@
     </div>
     <div class="error-container">
         <img src="../../assets/what.png" alt="">
-        <h1>What are you trying to edit?</h1>
+        <h1>What are you trying to do?</h1>
         <h3>We find this suspicious...</h3>
         <a href="/">Go back...</a>
     </div>
