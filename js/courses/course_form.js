@@ -12,7 +12,7 @@ const courseContent = document.querySelector("#course-content");
 const courseImage = document.querySelector("#course-image");
 
 let errorArray = [];
-const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(location.search);
 
 watchElementAndValidate(courseTitle);
 watchElementAndValidate(courseType);

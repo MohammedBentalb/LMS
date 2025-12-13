@@ -18,7 +18,7 @@ function getCourseSections($course_id){
 function getSingleSection($section_id){
     global $conn;
 
-    $stm = mysqli_prepare($conn, "SELECT s.id, s.course_id, s.title, s.content, s.created_at, s.updated_at, c.level, c.course_type FROM sections s JOIN courses c ON c.id = s.course_id WHERE s.id = ?;");
+    $stm = mysqli_prepare($conn, "SELECT s.id, s.course_id, s.title, s.content, s.position, s.created_at, s.updated_at, c.level, c.course_type FROM sections s JOIN courses c ON c.id = s.course_id WHERE s.id = ?;");
     if(!$stm){
         die("get course sections has failed");
     }
@@ -64,4 +64,16 @@ function getAllPositionOfSections($course_id){
     mysqli_stmt_execute($stm);
     $preresult = mysqli_stmt_get_result($stm);
     return $result = mysqli_fetch_all($preresult, MYSQLI_ASSOC);
+}
+
+function updateAsingleSection($title, $content, $section_id){
+    global $conn;
+    $stm = mysqli_prepare($conn, "UPDATE sections SET title = ? , content = ? WHERE id = ?");
+    if(!$stm){
+        return false;
+    }
+    mysqli_stmt_bind_param($stm, "ssi", $title, $content, $section_id);
+    $status = mysqli_stmt_execute($stm);
+    mysqli_stmt_close($stm);
+    return $status;
 }

@@ -5,7 +5,7 @@ require_once('./models/courses_model.php');
 $foundCourse = getSingleCourse($course_id);
 
 if(empty($foundCourse)){
-    require_once('./views/courses/error_edite.php');
+    require_once('./views/error/error.php');
     return;
 }
 $fileError = false;

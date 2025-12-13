@@ -242,6 +242,7 @@
   border-radius: .5rem;
   background-color: white;
   transition: background .2s linear;
+  min-height: 130px; ;
 }
 
 .add-section img {

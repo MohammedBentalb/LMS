@@ -14,6 +14,8 @@ const newSectionsContainer = document.querySelector(".new-sections");
 const originalfileds = document.querySelectorAll(".form-field");
 const fakeFields = [];
 const positions = document.querySelector(".positions").textContent;
+const params = new URLSearchParams(location.search)
+
 
 originalfileds.forEach((field) => {
   fakeFields.push(field);
@@ -35,7 +37,7 @@ let newSectionsCounter = 0;
 
 watchElementAndValidate(sectionTitle);
 watchElementAndValidate(sectionContent);
-watchPositionAndValidate(sectionPosition, state);
+(params.get('section_id')) === null ? null : watchPositionAndValidate(sectionPosition, state);
 
 addSectionButton.addEventListener("click", function () {
   newSectionsCounter++;
@@ -58,34 +60,27 @@ addSectionButton.addEventListener("click", function () {
 });
 
 sectionForm.addEventListener("submit", function (e) {
-  console.log("we ran");
   const newfields = newSectionsContainer.querySelectorAll(".form-field");
   e.preventDefault();
   state.errorArray = validateAndShowError(sectionTitle, state.errorArray);
   state.errorArray = validateAndShowError(sectionContent, state.errorArray);
-  const { errArray } = validatingPosition(
-    sectionPosition,
-    state.errorArray,
-    state.positionArray
-  );
-  state.errorArray = [...errArray];
-
-  console.log("we ran");
+  if(params.get('section_id') === null){
+    const { errArray } = validatingPosition(sectionPosition, state.errorArray, state.positionArray);
+    state.errorArray = [...errArray];
+  }
+  
   newfields.forEach((f) => {
     if (f.children[1].name === "section-position[]") {
-      const res = validatingPosition(
-        f.children[1],
-        state.errorArray,
-        state.positionArray
-      );
-      state.errorArray = res.errArray;
-      state.positionArray = res.positionArray;
+      if(params.get('section_id') === null){
+        const res = validatingPosition(f.children[1], state.errorArray, state.positionArray);
+        state.errorArray = res.errArray;
+        state.positionArray = res.positionArray;
+      }
     } else {
       state.errorArray = validateAndShowError(f.children[1], state.errorArray);
     }
   });
 
-  console.log(state.errorArray);
   if (state.errorArray.length === 0) {
     this.submit();
   }

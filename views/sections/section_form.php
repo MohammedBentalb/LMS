@@ -9,14 +9,14 @@
 </head>
 <body>
     <?php
-     include_once("./views/components/header.php");
-     include_once("./views/components/Back.php");
+        include_once("./views/components/header.php");
+        include_once("./views/components/Back.php");
     ?>
     <section class="parent-c">
     <p class="positions is-hidden" aria-hidden="true"><?= $positions ?></p>
     <h1 class="form-title max-content"><?= $sEditMode ? "Improve This Section" : "Build Your Course Sections" ?></h1>
     <p class="form-sub-title max-content"><?= $sEditMode ? "Refine the content and keep your course sharp" : "Break your course into clear, engaging parts" ?></p>
-    <form action="<?= $sEditMode ? "?v=sections&action=edit&section_id=$section_id" : "?v=sections&action=create&course_id=$course_id" ?>" method="POST" class="course-form" enctype="multipart/form-data">
+    <form action="<?= $sEditMode ? "?v=sections&action=edit&section_id=$section_id&course_id={$section[0]['course_id']}" : "?v=sections&action=create&course_id=$course_id" ?>" method="POST" class="course-form" enctype="multipart/form-data">
         <?=  isset($_GET['last_position']) ? "<p class='error-field global-error' data-error-name='global'>position sent is taken, start from {$_GET['last_position']} or higher</p>" : null?>
         <div class="form-field">
             <label for="section-title">what should we call the section</label>
@@ -25,12 +25,12 @@
         </div>
         <div class="form-field">
             <label for="section-position">Section Order</label>
-            <input id="section-position" name="section-position[]" type="number" placeholder="What should we calll your section?" value="<?= $sEditMode ? $section[0]['position'] : '' ?>">
+            <input id="section-position" name="section-position[]" type="number" placeholder="What should we calll your section?" value="<?= $sEditMode ? $section[0]['position'] : '' ?>" <?= $sEditMode ? 'disabled' : null ?>>
             <p class="error-field is-hidden" data-error-name="position" ></p>
         </div>
         <div class="form-field">
             <label for="section-content">content:</label>
-            <textarea name="section-content[]" id="section-content"><?= $sEditMode ? $section[0]['description'] : '' ?></textarea>
+            <textarea name="section-content[]" id="section-content"><?= $sEditMode ? $section[0]['content'] : '' ?></textarea>
             <p class="error-field is-hidden" data-error-name="content"></p>
         </div>
         <div class="new-sections"></div>
