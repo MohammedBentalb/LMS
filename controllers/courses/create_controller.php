@@ -22,7 +22,13 @@ $newName = time() . "-mohammed-2-" . $purename . '.' . $allowedTypes[ $_FILES['c
 if(!is_dir(__DIR__. '/../../public/images')){
     mkdir(__DIR__.'/../../public/images', 777, true);
 };
+
+$title = htmlspecialchars($_POST['course-title']);
+$content = htmlspecialchars($_POST['course-content']);
+$level = htmlspecialchars($_POST['course-level']);
+$type = htmlspecialchars($_POST['course-type']);
+
 if(move_uploaded_file($_FILES['course-image']['tmp_name'], __DIR__ . "/../../public/images/" . $newName)){
-    $redir = insertSingleCourse($_POST['course-title'], $_POST['course-content'], $_POST['course-level'], $_POST['course-type'], $newName);
+    $redir = insertSingleCourse($title, $content, $level, $type, $newName);
     if($redir) header('Location: index.php');
 }

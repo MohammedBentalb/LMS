@@ -21,7 +21,7 @@
 
     for($i = 0; $i < $length; $i++){
         try{
-            $good = insertSingleSection($course_id, $titles[$i], $contents[$i], $positions[$i]);
+            $good = insertSingleSection($course_id, htmlspecialchars($titles[$i]), htmlspecialchars($contents[$i]), htmlspecialchars($positions[$i]));
         }catch(mysqli_sql_exception $e){
             if($e->getCode() === 1062){
                 $sections = getCourseSections($course_id);

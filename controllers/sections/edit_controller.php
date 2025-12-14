@@ -9,5 +9,9 @@ if(empty($section)) {
     return;
 }
 
-$done = updateAsingleSection($_POST['section-title'], $_POST['section-content'], $section_id);
+$title = htmlspecialchars($_POST['section-title'][0]);
+$content = htmlspecialchars($_POST['section-content'][0]);
+
+
+$done = updateAsingleSection($title, $content, $section_id);
 if($done) header("Location: index.php\?v=courses&action=detail&course_id=$course_id");

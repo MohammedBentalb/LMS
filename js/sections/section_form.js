@@ -37,8 +37,9 @@ let newSectionsCounter = 0;
 
 watchElementAndValidate(sectionTitle);
 watchElementAndValidate(sectionContent);
-(params.get('section_id')) === null ? null : watchPositionAndValidate(sectionPosition, state);
+(params.get('section_id')) === null ? watchPositionAndValidate(sectionPosition, state) : null;
 
+console.log(params.get("section_id") === null);
 addSectionButton.addEventListener("click", function () {
   newSectionsCounter++;
   const div = document.createElement("div");

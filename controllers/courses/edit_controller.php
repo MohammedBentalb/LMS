@@ -35,5 +35,11 @@ if(!empty($_FILES) && $_FILES['course-image']['error'] === 0){
     unlink(__DIR__ . "/../../public/images/" . $foundCourse[0]['image']);
 }
 
-$editDone = updateSingleCourse($_POST['course-title'], $_POST['course-content'], $_POST['course-level'], $_POST['course-type'], $image, $course_id);
+
+$title = htmlspecialchars($_POST['course-title']);
+$content = htmlspecialchars($_POST['course-content']);
+$level = htmlspecialchars($_POST['course-level']);
+$type = htmlspecialchars($_POST['course-type']);
+
+$editDone = updateSingleCourse($title, $content, $level, $type, $image, $course_id);
 header("location: index.php");

@@ -14,6 +14,7 @@ if(empty($foundSection)){
 }
 
 $done = deleteSingleSection($section_id);
+
 if($done){
     header("location: index.php?v=courses&action=detail&course_id=$course_id");
 }
