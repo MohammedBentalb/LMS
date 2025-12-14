@@ -1,20 +1,22 @@
 <?php
 
+$sectionController = new SectionController( new CourseORM, new SectionORM);
+
 switch($action){
     case "detail":
-        require("./controllers/sections/detail_controller.php");
+        $sectionController->sectionDetail($section_id);
         break;
     case "create":
-        require("./controllers/sections/create_controller.php");        
+        $sectionController->sectionCreate($course_id);
         break;
     case "edit":
-        require("./controllers/sections/edit_controller.php");
+        $sectionController->sectionEdit($section_id);
         break;
     case "form":
-        require("./controllers/sections/form_controller.php");
+        $sectionController->sectionForm($section_id, $course_id, $sEditMode);
         break;
     case "delete":
-        require("./controllers/sections/delete_controller.php");
+        $sectionController->sectionDelete($section_id);
         break;
     default:
         header("Location: index.php");

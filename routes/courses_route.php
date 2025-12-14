@@ -1,21 +1,23 @@
 <?php
 
+$controller = new CoursesControlles(new CourseORM(), new SectionORM());
+
 switch($action){
     case "detail":
-        require("./controllers/courses/detail_controller.php");
+        $controller->courseDetails($course_id);
         break;
     case "form":
-        require("./controllers/courses/form_controller.php");
+        $controller->courseForm($course_id, $editMode);
         break;
     case "create":
-        require("./controllers/courses/create_controller.php");        
+        $controller->courseCreate($fileError);
         break;
     case "edit":
-        require("./controllers/courses/edit_controller.php");
+        $controller->courseEdit($course_id, $fileError);
         break;
     case "delete":
-        require("./controllers/courses/delete_controller.php");
+        $controller->courseDelete($course_id);
         break;
     default:
-        require("./controllers/courses/list_contaroller.php");
+        $controller->index();
 }
