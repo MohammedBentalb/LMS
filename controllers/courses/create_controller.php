@@ -1,6 +1,7 @@
 <?php
 
-require_once("./models/courses_model.php");
+require_once("./models/course_model.php");
+require_once("./repository//courseRepository.php");
 
 $MAXMB = 20;
 $fileError = false;
@@ -10,7 +11,8 @@ $allowedTypes = [
     'image/png' => 'png'
 ];
 
-if(empty($_FILES['course-image']) || $_FILES['course_image']['error'] != 0 || round($_FILES['course-image']['size'] / (1024 * 1024), 2) > $MAXMB || round($_FILES['course-image']['size'] / (1024 * 1024), 2) <= 0 || !key_exists($_FILES['course-image']['type'], $allowedTypes)){
+
+if(empty($_FILES['course-image']) || $_FILES['course-image']['error'] != 0 || round($_FILES['course-image']['size'] / (1024 * 1024), 2) > $MAXMB || round($_FILES['course-image']['size'] / (1024 * 1024), 2) <= 0 || !key_exists($_FILES['course-image']['type'], $allowedTypes)){
     $fileError = true;
     require_once('./views/courses/course_form.php');
     return;
@@ -24,11 +26,16 @@ if(!is_dir(__DIR__. '/../../public/images')){
 };
 
 $title = htmlspecialchars($_POST['course-title']);
-$content = htmlspecialchars($_POST['course-content']);
+$description = htmlspecialchars($_POST['course-content']);
 $level = htmlspecialchars($_POST['course-level']);
 $type = htmlspecialchars($_POST['course-type']);
 
 if(move_uploaded_file($_FILES['course-image']['tmp_name'], __DIR__ . "/../../public/images/" . $newName)){
-    $redir = insertSingleCourse($title, $content, $level, $type, $newName);
-    if($redir) header('Location: index.php');
+    $courses = new CourseORM();
+    $data = ["title" => $title, "description" => $description, "level" => $level, "course_type" => $type, "image" => $newName];
+    $done = $courses-> create($data);
+    var_dump($done);
+    if($done) header('Location: index.php');
 }
+
+require_once('./views/error/error.php');

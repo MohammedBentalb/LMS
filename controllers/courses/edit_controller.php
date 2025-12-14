@@ -1,15 +1,18 @@
 <?php
 
-require_once('./models/courses_model.php');
+require_once('./models/course_model.php');
+require_once('./repository/courseRepository.php');
 
-$foundCourse = getSingleCourse($course_id);
+$courses = new CourseORM();
+$courseExist = $courses->findById($course_id);
 
-if(empty($foundCourse)){
+if(!$courseExist){
     require_once('./views/error/error.php');
     return;
 }
+
 $fileError = false;
-$image = $foundCourse[0]['image'];
+$image = $courseExist->image;
 $MAXMB = 20;
 $allowedTypes = [
     'image/jpeg' => 'jpeg',
@@ -32,14 +35,15 @@ if(!empty($_FILES) && $_FILES['course-image']['error'] === 0){
         mkdir(__DIR__.'/../../public/images', 777, true);
     };
     move_uploaded_file($_FILES['course-image']['tmp_name'], __DIR__ . "/../../public/images/" . $image);
-    unlink(__DIR__ . "/../../public/images/" . $foundCourse[0]['image']);
+    unlink(__DIR__ . "/../../public/images/" . $courseExist->image);
 }
 
-
 $title = htmlspecialchars($_POST['course-title']);
-$content = htmlspecialchars($_POST['course-content']);
+$description = htmlspecialchars($_POST['course-content']);
 $level = htmlspecialchars($_POST['course-level']);
 $type = htmlspecialchars($_POST['course-type']);
 
-$editDone = updateSingleCourse($title, $content, $level, $type, $image, $course_id);
+$data = ["id" => $course_id, "title" => $title, "description" => $description, "level" => $level, "course_type" => $type, "image" => $image];
+
+$done = $courses->update($data);
 header("location: index.php");

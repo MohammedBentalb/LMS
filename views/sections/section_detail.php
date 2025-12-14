@@ -14,19 +14,19 @@
         require_once('./util/functions/formatDate.php');
     ?>
     <section class="max-content detail-container" style="margin: auto;">
-        <p class=""><?= $foundSection[0]['course_type'] ?></p>
-        <h1><?= $foundSection[0]['title'] ?> <span>—</span></h1>
+        <p class=""><?= $course ? $course->type : "" ?></p>
+        <h1><?= $section->title ?> <span>—</span></h1>
         <div>
             <a href="#">Mohammed Bentalb</a> 
             <img src="../../assets/motif-1.png" alt="motif" aria-hidden="true">
-            <p><?= castDate($foundSection[0]['created_at']) ?></p>
+            <p><?= $section->castDate() ?></p>
         </div>
-        <p><?= $foundSection[0]['content'] ?></p>
+        <p><?= $section->content ?></p>
 
         <button>Read more</button>
         <div class="max-content course-actions">
-            <a class="edit-btn" href="?v=sections&action=form&section_id=<?=$foundSection[0]['id']?>">edit<img src="../../assets/edit.png" alt="edit section"> </a>
-            <a class="delete-btn" href="?v=sections&action=delete&section_id=<?=$foundSection[0]['id']?>&course_id=<?= $foundSection[0]['course_id']?>">delete <img src="../../assets/delete.png" alt="delete section"></a>
+            <a class="edit-btn" href="?v=sections&action=form&section_id=<?= $section->id ?>">edit<img src="../../assets/edit.png" alt="edit section"> </a>
+            <a class="delete-btn" href="?v=sections&action=delete&section_id=<?= $section->id ?>&course_id=<?= $course ? $course->id : ""?>">delete <img src="../../assets/delete.png" alt="delete section"></a>
         </div>
     </section>
 </body> 

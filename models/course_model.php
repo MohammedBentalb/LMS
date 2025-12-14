@@ -1,26 +1,31 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbName = "lms";
 
-    $conn = mysqli_connect($servername, $username, $password, $dbName);
+    require_once('./models/baseEntity.php');
 
-    if(!$conn){
-        die("Connection failed" . mysqli_connect_error());
-    }   
-
-    
-    class Database{
-        private static ?PDO $connection = null;
-        public static function getConnnection(){
-            if(self::$connection == null){
-                return self::$connection = new PDO("mysql:host=localhost;dbname=lms;charset=utf8mb4","root","", [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
-            }
-            return self::$connection;
+    class Course extends BaseParent{
+        public string $description;
+        public string $image;
+        public string $level;
+        public string $type;
+        public function __construct(array $data) {
+            $this->id =  $data['id'];
+            $this->title =  $data['title'];
+            $this->description =  $data["description"];
+            $this->level=  $data["level"];
+            $this->type=  $data["course_type"];
+            $this->image =  $data["image"];
+            $this->createdAt =  $data["created_at"];
+            $this->updatedAt = $data["updated_at"];
         }
     }
 
+
+
+
+
+
+
+    
     // class Database{
     //     private static ?PDO $connection = null;
     //     public static function getConnnection(){
@@ -30,8 +35,6 @@
     //         return self::$connection;
     //     }
     // }
-
-
 
     // class BaseParent{ 
     //     public int $id;

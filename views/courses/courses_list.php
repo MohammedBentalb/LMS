@@ -1,14 +1,14 @@
         <ul class="courses-list max-content">
             <?php
-            foreach($courses as $key => $val){  ?>
+            foreach($courses as $course){  ?>
             <li class="">
-                <a href="?v=courses&<?="action=detail&course_id={$val["id"]}"?>" class="course">
+                <a href="?v=courses&<?="action=detail&course_id={$course->id}"?>" class="course">
                     <div class="course-img">
-                        <p><?= $val['level'] ?></p>
-                        <img src="../../public/images/<?= $val['image']?>" alt="">
+                        <p><?= $course->level ?></p>
+                        <img src="../../public/images/<?= $course->image ?>" alt="">
                     </div>
-                    <p class="course-title"><?= $val['title']?></p>
-                    <p class="course-type"><?= $val['course_type'] ?></p>
+                    <p class="course-title"><?= $course->title ?></p>
+                    <p class="course-type"><?= $course->type ?></p>
                 </a>
             </li>
             <?php

@@ -16,7 +16,7 @@
     <section class="course-detail-section parent-c no-p">
         <div class="detail-container max-content">
             <div class="detail-img">
-                <img src="../../public/images/<?= $course[0]['image']?>"  alt="">
+                <img src="../../public/images/<?= $course ? $course->image : '' ?>"  alt="">
             </div>
             <div class="detail-text">
                 <div class="progress">
@@ -26,10 +26,9 @@
                     <p>%60 watched</p>
                 </div>
                 <div class="detail-info">
-                    <!-- <p>Last updated: <?= explode(" ", $course[0]["updated_at"])[0] ?></p> -->
-                    <p><?= castDate($course[0]["updated_at"], true)?></p> 
-                    <h2><?= $course[0]['title'] ?></h2>
-                    <p><?= $course[0]["description"]?></p>
+                    <p><?= $course ? $course->castDate() : ''?></p> 
+                    <h2><?= $course ? $course->title : '' ?></h2>
+                    <p><?= $course ? $course->description : ''?></p>
                 </div>
                 <div class="detail-stats">
                     <div class="stat-d"><span><img src="../../assets/time.png" alt=""></span>13h</div>
@@ -39,15 +38,15 @@
             </div>
         </div>
         <div class="max-content course-actions">
-            <a class="edit-btn" href="?v=courses&action=form&course_id=<?=$course[0]['id']?>">edit <img src="../../assets/edit.png" alt="edit course"> </a>
-            <a class="delete-btn" href="?v=courses&action=delete&course_id=<?=$course[0]['id']?>">delete <img src="../../assets/delete.png" alt="delete course"></a>
+            <a class="edit-btn" href="?v=courses&action=form&course_id=<?= $course ?  $course->id : '' ?>">edit <img src="../../assets/edit.png" alt="edit course"> </a>
+            <a class="delete-btn" href="?v=courses&action=delete&course_id=<?= $course ? $course->id : '' ?>">delete <img src="../../assets/delete.png" alt="delete course"></a>
         </div>
     </section>
     <section class="parent-c">
         <h2 class="max-content">What you will be learning</h2>
         <div class="detail-sections-list max-content">
             <?php require_once('./views/sections/sections_list.php'); ?>
-            <a class="add-section" href="?v=sections&action=form&course_id=<?= $course_id ?>">
+            <a class="add-section" href="?v=sections&action=form&course_id=<?=$course ? $course->id : "" ?>">
                 <img src="../../assets/add.png" alt="add section"></button>
                 <p>add new section</p>  
             </a>

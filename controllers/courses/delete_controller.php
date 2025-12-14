@@ -1,15 +1,16 @@
 <?php
 
-require_once("./models/courses_model.php");
+require_once("./models/course_model.php");
+require_once("./repository/courseRepository.php");
 
-// get the course image name, to unlink it before deleeting a course
+$courses = new CourseORM();
+$courseExist = $courses->findById($course_id);
 
-$foundCourse = getSingleCourse($course_id);
-
-if(empty($foundCourse)){
+if(!$courseExist){
     require_once('./views/error/error.php');
     return;
 }
-unlink('./public/images/' . $foundCourse[0]['image']);
-deleteSingleCourse($course_id);
+
+unlink('./public/images/' . $courseExist->image);
+$courses->delete($course_id);
 header('Location: index.php');

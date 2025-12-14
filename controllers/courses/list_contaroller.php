@@ -1,5 +1,7 @@
 <?php
-require_once("./models/courses_model.php");
+require_once('./repository/courseRepository.php');
+require_once('./models/course_model.php');
 
-$courses = getCourses();
+$course = new CourseORM();
+$courses = $course->findAll();
 require_once("../brief-7/views/courses/index.php");

@@ -17,11 +17,11 @@
     <p class="form-sub-title max-content"><?= $editMode ? "Keep your knowledge fresh and up to date" : "Share your knowledge on a large scale" ?></p>
     <form action="<?= $editMode ? "?v=courses&action=edit&course_id=$course_id" : "?v=courses&action=create" ?>" method="POST" class="course-form" enctype="multipart/form-data">
         <div class="preview-image <?= $editMode ? "" : "is-hidden" ?>">
-            <img class="" src="../../public/images/<?=  $editMode ? $course[0]['image'] : '' ?>" alt="">
+            <img class="" src="../../public/images/<?=  $editMode ? $course->image : '' ?>" alt="">
         </div>
         <div class="form-field">
             <label for="course-title">what should we call the course</label>
-            <input id="course-title" name="course-title" type="text" placeholder="What should we calll your course?" value="<?= $editMode ? $course[0]['title'] : '' ?>">
+            <input id="course-title" name="course-title" type="text" placeholder="What should we calll your course?" value="<?= $editMode ? $course->title : '' ?>">
             <p class="error-field is-hidden" data-error-name="title" ></p>
         </div>
         <div class="form-field">
@@ -33,24 +33,24 @@
         <div class="form-field">
             <label for="course-level">What skill level is this course</label>
             <select name="course-level" id="course-level">
-                <option value="beginner" <?= $editMode && $course[0]['level'] === 'beginner' ? 'selected' : '' ?>>Beginner</option>
-                <option value="intermediate" <?= $editMode && $course[0]['level'] === 'intermediate' ? 'selected' : '' ?>>Intermediate</option>
-                <option value="advanced" <?= $editMode && $course[0]['level'] === 'advanced' ? 'selected' : '' ?>>Advanced</option>
+                <option value="beginner" <?= $editMode && $course->level === 'beginner' ? 'selected' : '' ?>>Beginner</option>
+                <option value="intermediate" <?= $editMode && $course->level === 'intermediate' ? 'selected' : '' ?>>Intermediate</option>
+                <option value="advanced" <?= $editMode && $course->level === 'advanced' ? 'selected' : '' ?>>Advanced</option>
             </select>
             <p class="error-field is-hidden" data-error-name="type"></p>
         </div>
         <div class="form-field">
             <label for="course-type">what type of content is that?</label>
             <select name="course-type" id="course-type">
-                <option value="document" <?= $editMode && $course[0]['course_type'] === 'document' ? 'selected' : '' ?>>Documents</option>
-                <option value="bootcamp" <?= $editMode && $course[0]['course_type'] === 'bootcamp' ? 'selected' : '' ?>>Bootcamp</option>
-                <option value="servey" <?= $editMode && $course[0]['course_type'] === 'servey' ? 'selected' : '' ?>>Research & servey</option>
+                <option value="document" <?= $editMode && $course->type === 'document' ? 'selected' : '' ?>>Documents</option>
+                <option value="bootcamp" <?= $editMode && $course->type === 'bootcamp' ? 'selected' : '' ?>>Bootcamp</option>
+                <option value="servey" <?= $editMode && $course->type === 'servey' ? 'selected' : '' ?>>Research & servey</option>
             </select>
             <p class="error-field is-hidden" data-error-name="type"></p>
         </div>
         <div class="form-field">
             <label for="course-content">content:</label>
-            <textarea name="course-content" id="course-content"><?= $editMode ? $course[0]['description'] : '' ?></textarea>
+            <textarea name="course-content" id="course-content"><?= $editMode ? $course->description : '' ?></textarea>
             <p class="error-field is-hidden" data-error-name="content"></p>
         </div>
         <button>Create course</button>

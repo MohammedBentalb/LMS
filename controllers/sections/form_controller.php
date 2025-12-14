@@ -1,15 +1,24 @@
 <?php
-require_once('./models/sections_model.php');
-$res = getAllPositionOfSections($course_id);
+require_once('./models/section_model.php');
+require_once('./repository/sectionRepository.php');
+
+
+$sections = new SectionORM();
 $positions = [];
+
+if(is_numeric($course_id)){
+    $allSections = $sections->findByForeignKey($course_id);
+    
+    foreach($allSections as $s){
+        $positions = [...$positions, $s->position];
+    };
+}
+
 $section = null;
 
-foreach($res as $key => $val){
-    $positions = [...$positions, $val['position']];
-};
-
 if(is_numeric($section_id)){
-    $section = getSingleSection($section_id);
+    $section = $sections->findById($section_id);
+
     if(empty($section)) {
         require_once('./views/error/error.php');
         return;
