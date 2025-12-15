@@ -231,6 +231,13 @@
   .detail-sections-list {
     grid-template-columns: 1fr;
   }
+  .detail-section{
+    flex-direction: column;
+  }
+  .detail-img {
+    height: 200px;
+  }
+
 }
 
 .add-section {

@@ -53,3 +53,33 @@
 .detail-container button:hover {
   color: #733aff;
 }
+
+
+@media screen and (max-width: 668px) {
+  .detail-container h1{
+    font-size: 1.5rem;
+  }
+  
+  .detail-container div a{
+    font-size: .9rem;
+  }
+
+  .detail-container div p{
+    font-size: .75rem;
+  }
+}
+
+@media screen and (max-width: 468px){
+  .detail-container h1{
+    font-size: 1.1rem;
+  }
+
+  .detail-container > div:nth-child(3){
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .detail-container div p{
+    font-size: .75rem;
+  }
+}

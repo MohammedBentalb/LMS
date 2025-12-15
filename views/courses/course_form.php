@@ -9,8 +9,8 @@
 </head>
 <body>
     <?php
-     include_once("./views/components/header.php");
-     include_once("./views/components/Back.php");
+        include_once("./views/components/header.php");
+        include_once("./views/components/Back.php");
     ?>
     <section class="parent-c">
     <h1 class="form-title max-content"><?= $editMode ? "Refine your course" : "Create the course you always wanted" ?></h1>
@@ -53,7 +53,7 @@
             <textarea name="course-content" id="course-content"><?= $editMode ? $course->description : '' ?></textarea>
             <p class="error-field is-hidden" data-error-name="content"></p>
         </div>
-        <button>Create course</button>
+        <button><?= $editMode ? "edit course" : "create course" ?></button>
     </form>
     </section>
     <script src="../../js/courses/course_form.js" defer type="module"></script>

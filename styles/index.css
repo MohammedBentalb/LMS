@@ -91,6 +91,19 @@ body {
   color: #733aff;
 }
 
+
+@media screen and (max-width: 668px) {
+  .header > div a {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 668px) {
+  .header > div > div {
+    display: none;
+  }
+}
+
 .back{
   padding: 2rem;
   padding-bottom: 0;

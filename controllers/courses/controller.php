@@ -76,7 +76,7 @@ class CoursesControlles{
         header("location: index.php");
     }
     
-    public function courseDetails(?int $course_id){     
+    public function courseDetails(?int $course_id){
 
         $course = $this->CourseORM->findById($course_id);
         $courseSections = $this->SectionORM->findByForeignKey($course_id);

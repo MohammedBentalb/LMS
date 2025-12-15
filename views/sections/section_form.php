@@ -33,9 +33,11 @@
             <textarea name="section-content[]" id="section-content"><?= $sEditMode ? $section->content : '' ?></textarea>
             <p class="error-field is-hidden" data-error-name="content"></p>
         </div>
-        <div class="new-sections"></div>
-        <button type="button" class="add-new-section">add section</button>
-        <button>Create section</button>
+        <?php if(!$sEditMode){?>
+            <div class="new-sections"></div>
+            <button type="button" class="add-new-section">add section</button>
+        <?php } ?>
+        <button><?= $sEditMode ? "Edit section" : "Create section" ?></button>
     </form>
     </section>
     <script src="../../js/sections/section_form.js" defer type="module"></script>
