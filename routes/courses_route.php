@@ -13,7 +13,7 @@ switch($action){
         $controller->courseCreate($fileError);
         break;
     case "edit":
-        $controller->courseEdit($course_id, $fileError);
+        $controller->courseEdit($course_id);
         break;
     case "delete":
         $controller->courseDelete($course_id);

@@ -25,7 +25,7 @@ class CoursesControlles{
         require_once('./views/courses/course_form.php');
     }
 
-    public function courseEdit(?int $course_id, bool $fileError){
+    public function courseEdit(?int $course_id){
 
         $courseExist = $this->CourseORM->findById($course_id);
 
