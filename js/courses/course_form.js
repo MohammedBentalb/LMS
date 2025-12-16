@@ -33,3 +33,6 @@ courseForm.addEventListener("submit", function (e) {
   }
   console.log(errorArray);
 });
+
+
+console.log(errorArray)

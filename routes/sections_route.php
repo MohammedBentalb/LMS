@@ -1,5 +1,8 @@
 <?php
 
+use ORM\CourseORM;
+use ORM\SectionORM;
+
 $sectionController = new SectionController( new CourseORM, new SectionORM);
 
 switch($action){

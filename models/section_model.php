@@ -1,7 +1,7 @@
 <?php
 
-    require_once('./models/baseEntity.php');
-
+   require_once('./models/baseEntity.php');
+    
     class Section extends BaseParent{ 
         public int $courseId;
         public string $content;

@@ -1,6 +1,7 @@
 <?php
-    
+
     require_once('./db/connection.php');
+    require_once('./models/course_model.php');
 
     class BaseORM{
         protected PDO $pdo;

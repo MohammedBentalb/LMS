@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../styles/header.css" />
-    <link rel="stylesheet" href="../../styles/index.css" />
-    <link rel="stylesheet" href="../../styles/search.css" />
-    <link rel="stylesheet" href="../../styles/courses.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
+    <link rel="stylesheet" href="/styles/index.css" />
+    <link rel="stylesheet" href="/styles/search.css" />
+    <link rel="stylesheet" href="/styles/courses.css" />
     <title>LMD</title>
   </head>
   <body>
@@ -17,7 +17,7 @@
         <div>
           <h1>Explore</h1>
           <div>
-            <a href="?v=courses&action=form">
+            <a href="/courses/form">
               <button class="button blue">
                 create new course
               </button>

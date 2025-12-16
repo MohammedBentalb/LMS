@@ -1,5 +1,7 @@
 <?php
 
+require_once('./repository/courseRepository.php');
+require_once('./repository/sectionRepository.php');
 
 class SectionController{
     public function __construct(private CourseORM $CourseORM, private SectionORM  $SectionORM) {}

@@ -1,8 +1,13 @@
 <?php
 
 
-class CoursesControlles{
-    
+require_once('./repository/courseRepository.php');
+require_once('./repository/sectionRepository.php');
+require_once('./models/section_model.php');
+require_once('./models/course_model.php');
+
+class CourseController{
+
     public function __construct(private CourseORM $CourseORM, private SectionORM  $SectionORM) {}
 
     public  function index(){
@@ -10,7 +15,7 @@ class CoursesControlles{
         require_once("../brief-7/views/courses/index.php");
     }
 
-    public function courseForm(?int $course_id, bool $editMode){
+    public function courseForm(?int $course_id = null, bool $editMode = false){
         
         $course = null;
         if(is_numeric($course_id)){
@@ -26,7 +31,7 @@ class CoursesControlles{
     }
 
     public function courseEdit(?int $course_id){
-
+        return;
         $courseExist = $this->CourseORM->findById($course_id);
 
         if(!$courseExist){
@@ -34,7 +39,7 @@ class CoursesControlles{
             return;
         }
 
-        $fileError = false;
+        $errorFile = false;
         $image = $courseExist->image;
         $MAXMB = 20;
         $allowedTypes = [
@@ -45,7 +50,7 @@ class CoursesControlles{
 
 
         if(!empty($_FILES) && $_FILES['course-image']['error'] === 0){
-            if(round($_FILES['course-image']['size'] / (1024 * 1024), 2) > $MAXMB || round($_FILES['course-image']['size'] / (1024 * 1024), 2) <= 0 && !key_exists($_FILES['course-image']['type'], $allowedTypes)){
+            if(round($_FILES['course-image']['size'] / (1024 * 1024), 2) > $MAXMB || round($_FILES['course-image']['size'] / (1024 * 1024), 2) <= 0 || !key_exists($_FILES['course-image']['type'], $allowedTypes)){
                 $fileError = true;
                 require_once('./views/courses/course_form.php');
                 return;
@@ -102,19 +107,19 @@ class CoursesControlles{
             header('Location: index.php');
     }
 
-    public function courseCreate(?bool $fileError){
+    public function courseCreate(){
 
         $MAXMB = 20;
-        $fileError = false;
+        $errorFile = false;
         $allowedTypes = [
             'image/jpeg' => 'jpeg',
             'image/jpg' => 'jpg',
             'image/png' => 'png'
         ];
-
+ 
 
         if(empty($_FILES['course-image']) || $_FILES['course-image']['error'] != 0 || round($_FILES['course-image']['size'] / (1024 * 1024), 2) > $MAXMB || round($_FILES['course-image']['size'] / (1024 * 1024), 2) <= 0 || !key_exists($_FILES['course-image']['type'], $allowedTypes)){
-            $fileError = true;
+            $errorFile = true;
             require_once('./views/courses/course_form.php');
             return;
         }

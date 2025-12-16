@@ -1,6 +1,9 @@
 <?php
 
-$controller = new CoursesControlles(new CourseORM(), new SectionORM());
+require_once('./repository/courseRepository.php');
+require_once('./repository/sectionRepository.php');
+
+$controller = new CourseController(new CourseORM(), new SectionORM());
 
 switch($action){
     case "detail":

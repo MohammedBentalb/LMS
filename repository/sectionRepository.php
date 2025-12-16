@@ -1,7 +1,7 @@
 <?php
 
     require_once('./repository/baseRepository.php');
-    
+
     class SectionORM extends BaseORM{
         protected static string $table = 'sections';
         protected static string $entityClass = Section::class;
