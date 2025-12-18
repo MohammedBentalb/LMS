@@ -13,9 +13,10 @@
         include_once("./views/components/Back.php");
     ?>
     <section class="parent-c">
+    <p class="EditMode is-hidden" aria-hidden="true"><?= $editMode ?></p>
     <h1 class="form-title max-content"><?= isset($editMode) && $editMode ? "Refine your course" : "Create the course you always wanted" ?></h1>
     <p class="form-sub-title max-content"><?= isset($editMode) && $editMode ? "Keep your knowledge fresh and up to date" : "Share your knowledge on a large scale" ?></p>
-    <form action="<?= isset($editMode) && $editMode ? "?v=courses&action=edit&course_id=$course_id" : "?v=courses&action=create" ?>" method="POST" class="course-form" enctype="multipart/form-data">
+    <form action="<?= isset($editMode) && $editMode ? "/courses/edit/$course_id" : "/courses/create" ?>" method="POST" class="course-form" enctype="multipart/form-data">
         <div class="preview-image <?= isset($editMode) && $editMode ? "" : "is-hidden" ?>">
             <img class="" src="../../public/images/<?=  isset($editMode) && $editMode ? $course->image : '' ?>" alt="">
         </div>
@@ -56,6 +57,6 @@
         <button><?= isset($editMode) && $editMode ? "edit course" : "create course" ?></button>
     </form>
     </section>
-    <script src="../../js/courses/course_form.js" defer type="module"></script>
+    <script src="/js/courses/course_form.js" defer type="module"></script>
 </body>
 </html>

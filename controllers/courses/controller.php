@@ -1,21 +1,19 @@
 <?php
 
+namespace Controllers\Courses;
+use Repository\CourseRepository;
+use Repository\SectionRepository;
 
-require_once('./repository/courseRepository.php');
-require_once('./repository/sectionRepository.php');
-require_once('./models/section_model.php');
-require_once('./models/course_model.php');
+class Controller{
 
-class CourseController{
-
-    public function __construct(private CourseORM $CourseORM, private SectionORM  $SectionORM) {}
+    public function __construct(private CourseRepository $CourseORM, private SectionRepository $SectionORM) {}
 
     public  function index(){
         $courses = $this->CourseORM->findAll();
         require_once("../brief-7/views/courses/index.php");
     }
 
-    public function courseForm(?int $course_id = null, bool $editMode = false){
+    public function courseForm(?int $course_id = null){
         
         $course = null;
         if(is_numeric($course_id)){
@@ -31,7 +29,6 @@ class CourseController{
     }
 
     public function courseEdit(?int $course_id){
-        return;
         $courseExist = $this->CourseORM->findById($course_id);
 
         if(!$courseExist){
@@ -78,7 +75,7 @@ class CourseController{
             require_once('./views/error/error.php');
             return;
         }
-        header("location: index.php");
+        header("location: /");
     }
     
     public function courseDetails(?int $course_id){
@@ -104,7 +101,7 @@ class CourseController{
             
             unlink('./public/images/' . $courseExist->image);
             $this->CourseORM->delete($course_id);
-            header('Location: index.php');
+            header('Location: /');
     }
 
     public function courseCreate(){
@@ -140,7 +137,7 @@ class CourseController{
             $data = ["title" => $title, "description" => $description, "level" => $level, "course_type" => $type, "image" => $newName];
             $done = $this->CourseORM->create($data);
             var_dump($done);
-            if($done) header('Location: index.php');
+            if($done) header('Location: /');
         }
 
         require_once('./views/error/error.php');

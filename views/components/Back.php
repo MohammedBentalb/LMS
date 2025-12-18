@@ -1,6 +1,6 @@
 <section class="max-content back">
     <button href="\">
-        <img src="../../assets/arrow-left.png" alt="arrow">
+        <img src="/assets/arrow-left.png" alt="arrow">
         <p>Back</p>
     </button>
 </section>

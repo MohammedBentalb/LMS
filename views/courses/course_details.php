@@ -38,15 +38,15 @@
             </div>
         </div>
         <div class="max-content course-actions">
-            <a class="edit-btn" href="?v=courses&action=form&course_id=<?= $course ?  $course->id : '' ?>">edit <img src="../../assets/edit.png" alt="edit course"> </a>
-            <a class="delete-btn" href="?v=courses&action=delete&course_id=<?= $course ? $course->id : '' ?>">delete <img src="../../assets/delete.png" alt="delete course"></a>
+            <a class="edit-btn" href="/courses/form/<?= $course ?  $course->id : '' ?>">edit <img src="../../assets/edit.png" alt="edit course"> </a>
+            <a class="delete-btn" href="/courses/delete/<?= $course ? $course->id : '' ?>">delete <img src="../../assets/delete.png" alt="delete course"></a>
         </div>
     </section>
     <section class="parent-c">
         <h2 class="max-content">What you will be learning</h2>
         <div class="detail-sections-list max-content">
             <?php require_once('./views/sections/sections_list.php'); ?>
-            <a class="add-section" href="?v=sections&action=form&course_id=<?=$course ? $course->id : "" ?>">
+            <a class="add-section" href="/sections/form/create/<?=$course ? $course->id : "" ?>">
                 <img src="../../assets/add.png" alt="add section"></button>
                 <p>add new section</p>  
             </a>

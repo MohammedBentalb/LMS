@@ -1,20 +1,19 @@
 <?php
 
-require_once('./repository/courseRepository.php');
-require_once('./repository/sectionRepository.php');
+namespace controllers\sections;
 
-class SectionController{
-    public function __construct(private CourseORM $CourseORM, private SectionORM  $SectionORM) {}
+use PDOException;
+use Repository\CourseRepository;
+use Repository\SectionRepository;
 
-    public function sectionCreate(?int $course_id){
-        if($course_id === null) header("Location: index.php");
+class Controller{
+    public function __construct(private CourseRepository $CourseORM, private SectionRepository  $SectionORM) {}
+
+    public function sectionCreate(?int $course_id = null){
+        if($course_id === null) header("Location: /");
         
         $courseExist = $this->CourseORM->findById($course_id);
-        if(!$courseExist) header("Location: index.php");
-
-        $urlArray = explode("/", $_SERVER['HTTP_REFERER']);
-        $prevLocation = (end($urlArray));
-        
+        if(!$courseExist) header("Location: /");
 
         $titles = $_POST['section-title'];
         $positions = $_POST['section-position'];
@@ -25,22 +24,21 @@ class SectionController{
 
         for($i = 0; $i < $length; $i++){
             try{
-                $data = ["course_id" => $course_id, "title" => htmlspecialchars($titles[$i]), "content" => htmlspecialchars($contents[$i]), "position" => htmlspecialchars($positions[$i])];
+                $data = ["course_id" => $course_id, "title" => $titles[$i], "content" => $contents[$i], "position" => $positions[$i]];
                 $good = $this->SectionORM->create($data);
             }catch(PDOException $e){
                 if($e->errorInfo[1] === 1062){
                     $courseSections = $this->SectionORM->findByForeignKey($course_id);
                     $lastPosition = end($courseSections)->position;
-                    header("Location: {$prevLocation}&last_position=$lastPosition");
+                    header("Location: /sections/form/create/$course_id");
                 }
             }
         }
         
-        if($good) header("Location: index.php?v=coursess&action=detail&course_id=$course_id");
+        if($good) header("Location: /courses/detail/$course_id");
     }
 
     public function sectionEdit(?int $section_id){
-
         $section = $this->SectionORM->findById($section_id);
         if(!$section) {
             require_once('./views/error/error.php');
@@ -51,11 +49,10 @@ class SectionController{
         $content = $_POST['section-content'][0];
 
         $done = $this->SectionORM->update(["title" => $title, "content" => $content, "id" => $section_id]);
-        if($done) header("Location: index.php\?v=courses&action=detail&course_id=$section->courseId");
+        if($done) header("Location: /courses/detail/$section->courseId");
     }
 
     public function sectionDelete(?int $section_id){
-
         if(!isset($section_id)) {
             require_once('./views/error/error.php');
             return;
@@ -70,7 +67,7 @@ class SectionController{
         $done = $this->SectionORM->delete($section_id);
 
         if($done){
-            header("location: index.php?v=courses&action=detail&course_id=$sectionExist->courseId");
+            header("location: /courses/detail/$sectionExist->courseId");
         }
 
         require_once('./views/error/error.php');
@@ -85,12 +82,61 @@ class SectionController{
         require_once('./views/sections/section_detail.php');
     }
     
-    public function sectionForm(?int $section_id, ?int $course_id, ?bool $sEditMode){
+    public function sectionFormCreate(?int $course_id = null){
+        if(!$course_id || !is_numeric($course_id)){
+            require_once('./views/error/error.php');
+            return;  
+        }
+        
+        $positions = [];
+        $sEditMode = false;
+
+        $course = $this->CourseORM->findById($course_id);
+        $sections = $this->SectionORM->findByForeignKey($course_id);
+        if(!$course){
+            require_once('./views/error/error.php');
+            return;  
+        }
+
+        foreach($sections ?: [] as $s){
+            $positions = [...$positions, $s->position];
+        }
+        $id = $course->id;
+        require_once('./views/sections/section_form.php');
+    }
+
+    public function sectionFormEdit(?int $section_id = null){
     
         $positions = [];
 
-        if(is_numeric($course_id)){
-            $allSections = $this->SectionORM->findByForeignKey($course_id) ?: [];
+        if(!$section_id || !is_numeric($section_id)){
+            require_once('./views/error/error.php');
+            return;
+        }
+
+        $section = $this->SectionORM->findById($section_id);
+        
+        if(!$section){
+            require_once('./views/error/error.php');
+            return; 
+        }
+        
+        $allCourseSections = $this->SectionORM->findByForeignKey($section->courseId);
+
+        foreach($allCourseSections as $s){
+            $positions = [...$positions, $s->position];
+        };
+        $sEditMode = true;
+        $id = $section_id;
+        require_once('./views/sections/section_form.php');
+    }
+
+    public function sectionAddForm(?int $section_id = null){
+    
+        $positions = [];
+
+        if(is_numeric($section_id)){
+            $allSections = $this->SectionORM->findById($section_id) ?: [];
             
             foreach($allSections as $s){
                 $positions = [...$positions, $s->position];

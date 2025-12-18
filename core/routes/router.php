@@ -1,22 +1,27 @@
 <?php
 
-require_once('./repository/courseRepository.php');
-require_once('./repository/sectionRepository.php');
+namespace Core\Routes;
+
+use Exception;
+use Reflection;
+use ReflectionClass;
+use Repository\CourseRepository;
+use Repository\SectionRepository;
 
 class Router{
     private static array $routes = [];
 
-    public function add(string $route, string $actions){
+    public static function add(string $route, string $actions){
         static::$routes = [...static::$routes, [$route, $actions]];
     }
 
-    public function dispatch(){
+    public static function dispatch(){
         $path = trim($_SERVER['REQUEST_URI'], "/");
         
         foreach(static::$routes as $route){
-            if($path == "" || $route[0] === $path){
-                 $this->execute($route[1]);
-                 return;
+            if($path == "" || preg_match("#^$route[0]$#", $path)){
+                static::execute($route[1]);
+                return;
             }
         }
         
@@ -25,28 +30,29 @@ class Router{
         $secondMatch = implode("/", $pathWithNoParam) . "/{id}";
         
         foreach(static::$routes as $route){
-            if(preg_match("#^(.+)/(\d+)/?$#", $path, $match) && $route[0] === $secondMatch){
+            $pattern = '#^' . str_replace('{id}', '(\d+)', $route[0]) . '$#';
+            if($route[0] == "/") continue;
+            if(preg_match($pattern, $path, $match)){
                 $pathArray = explode("/", $path);
                 $param =  (int) end($pathArray);
-                $this->execute($route[1], $param);
+                static::execute($route[1], $param);
                 return;
             }
         }
 
-        var_dump($path);
+       throw new Exception("route is not defined");
+        
     }
 
-    public function execute($call, ?int $param = null ){
-        // echo "<br/>";
-        // echo "<br/>";
-        // var_dump($call);
-        //  echo "<br/>";
-        //  echo "<br/>";
-        //  echo "<br/>";
-        // var_dump($param ?: "no params");
+    public static function initialize(){
+        require_once('./core/routes/routeList.php');
+    }
+
+    public static function execute($call, ?int $param = null ){
         $ClassAndMethod = explode("::", $call);
         $Controller = $ClassAndMethod[0];
         $method= $ClassAndMethod[1];
-        call_user_func([new $Controller(new CourseORM(), new SectionORM()), $method], $param);
+
+        call_user_func([new $Controller(new CourseRepository, new SectionRepository), $method], $param);
     }
 }

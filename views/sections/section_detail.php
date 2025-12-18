@@ -25,8 +25,8 @@
 
         <button>Read more</button>
         <div class="max-content course-actions">
-            <a class="edit-btn" href="?v=sections&action=form&section_id=<?= $section->id ?>">edit<img src="../../assets/edit.png" alt="edit section"> </a>
-            <a class="delete-btn" href="?v=sections&action=delete&section_id=<?= $section->id ?>&course_id=<?= $course ? $course->id : ""?>">delete <img src="../../assets/delete.png" alt="delete section"></a>
+            <a class="edit-btn" href="/sections/form/edit/<?= $section->id ?>">edit<img src="../../assets/edit.png" alt="edit section"> </a>
+            <a class="delete-btn" href="/sections/delete/<?= $section->id ?>">delete <img src="../../assets/delete.png" alt="delete section"></a>
         </div>
     </section>
 </body> 

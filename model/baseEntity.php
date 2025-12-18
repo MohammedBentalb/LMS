@@ -1,6 +1,8 @@
 <?php
 
-    class BaseParent{ 
+namespace Model;
+
+    class BaseEntity{ 
         public int $id;
         public string $title;
         public string $createdAt;

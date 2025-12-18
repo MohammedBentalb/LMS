@@ -16,6 +16,9 @@ const fakeFields = [];
 const positions = document.querySelector(".positions").textContent;
 const params = new URLSearchParams(location.search)
 
+const editMode = document.querySelector(".EditMode");
+
+console.log(editMode);
 
 originalfileds.forEach((field) => {
   fakeFields.push(field);
@@ -37,7 +40,7 @@ let newSectionsCounter = 0;
 
 watchElementAndValidate(sectionTitle);
 watchElementAndValidate(sectionContent);
-(params.get('section_id')) === null ? watchPositionAndValidate(sectionPosition, state) : null;
+(!editMode) === null ? watchPositionAndValidate(sectionPosition, state) : null;
 
 console.log(params.get("section_id") === null);
 addSectionButton.addEventListener("click", function () {
@@ -65,14 +68,14 @@ sectionForm.addEventListener("submit", function (e) {
   e.preventDefault();
   state.errorArray = validateAndShowError(sectionTitle, state.errorArray);
   state.errorArray = validateAndShowError(sectionContent, state.errorArray);
-  if(params.get('section_id') === null){
+  if(!editMode === null){
     const { errArray } = validatingPosition(sectionPosition, state.errorArray, state.positionArray);
     state.errorArray = [...errArray];
   }
   
   newfields.forEach((f) => {
     if (f.children[1].name === "section-position[]") {
-      if(params.get('section_id') === null){
+      if(!editMode === null){
         const res = validatingPosition(f.children[1], state.errorArray, state.positionArray);
         state.errorArray = res.errArray;
         state.positionArray = res.positionArray;

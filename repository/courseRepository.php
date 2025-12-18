@@ -1,9 +1,10 @@
 <?php
 
-require_once('./repository/baseRepository.php');
-require_once('./models/course_model.php');
+namespace Repository;
+use Repository\EntityManager;
+use Model\Course;
 
-    class CourseORM extends BaseORM{
+    class CourseRepository extends EntityManager{
         protected static string $table = 'courses';
         protected static string $entityClass = Course::class; 
     }
