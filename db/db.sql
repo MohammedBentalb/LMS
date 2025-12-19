@@ -33,6 +33,6 @@ CREATE TABLE sections(
 
 ALTER TABLE courses
 ADD COLUMN level VARCHAR(255) NOT NULL,
-ADD COLUMN course_type VARCHAR(255) NOT NULL,
+ADD COLUMN type VARCHAR(255) NOT NULL,
 ADD CONSTRAINT check_level_value CHECK(level IN ('beginner', 'intermediate', 'advanced')),
-ADD CONSTRAINT check_type_value CHECK(course_type IN ('document', 'bootcamp', 'servey'));
+ADD CONSTRAINT check_type_value CHECK(type IN ('document', 'bootcamp', 'servey'));

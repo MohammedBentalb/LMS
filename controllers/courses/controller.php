@@ -1,6 +1,8 @@
 <?php
 
 namespace Controllers\Courses;
+
+use Model\Course;
 use Repository\CourseRepository;
 use Repository\SectionRepository;
 
@@ -17,7 +19,7 @@ class Controller{
         
         $course = null;
         if(is_numeric($course_id)){
-            $course = $this->CourseORM->findById($course_id);
+            $course = $this->CourseORM->findById(new Course($course_id));
             if(empty($course)) {
                 require_once('./views/error/error.php');
                 return;
@@ -29,7 +31,7 @@ class Controller{
     }
 
     public function courseEdit(?int $course_id){
-        $courseExist = $this->CourseORM->findById($course_id);
+        $courseExist = $this->CourseORM->findById(new Course($course_id));
 
         if(!$courseExist){
             require_once('./views/error/error.php');
@@ -68,9 +70,10 @@ class Controller{
         $level = htmlspecialchars($_POST['course-level']);
         $type = htmlspecialchars($_POST['course-type']);
 
-        $data = ["id" => $course_id, "title" => $title, "description" => $description, "level" => $level, "course_type" => $type, "image" => $image];
-
-        $done = $this->CourseORM->update($data);
+        $data = ["id" => $course_id, "title" => $title, "description" => $description, "level" => $level, "type" => $type, "image" => $image];
+        $newCourse = new Course($course_id);
+        $newCourse->hydrate($data);
+        $done = $this->CourseORM->update($newCourse);
         if(!$done){
             require_once('./views/error/error.php');
             return;
@@ -79,20 +82,17 @@ class Controller{
     }
     
     public function courseDetails(?int $course_id){
-
-        $course = $this->CourseORM->findById($course_id);
-        $courseSections = $this->SectionORM->findByForeignKey($course_id);
-
+        $course = $this->CourseORM->findById(new Course($course_id)) ?: [];
         if(!$course){
             require_once('./views/error/error.php');
             return;
         }
+        $courseSections = $this->SectionORM->findByForeignKey($course);
         require_once("./views/courses/course_details.php");
     }
     
     public function courseDelete(?int $course_id){
-         
-         $courseExist = $this->CourseORM->findById($course_id);
+        $courseExist = $this->CourseORM->findById(new Course($course_id));
          
          if(!$courseExist){
              require_once('./views/error/error.php');
@@ -100,7 +100,7 @@ class Controller{
             }
             
             unlink('./public/images/' . $courseExist->image);
-            $this->CourseORM->delete($course_id);
+            $this->CourseORM->delete($courseExist);
             header('Location: /');
     }
 
@@ -135,8 +135,9 @@ class Controller{
 
         if(move_uploaded_file($_FILES['course-image']['tmp_name'], __DIR__ . "/../../public/images/" . $newName)){
             $data = ["title" => $title, "description" => $description, "level" => $level, "course_type" => $type, "image" => $newName];
-            $done = $this->CourseORM->create($data);
-            var_dump($done);
+            $course = new Course();
+            $course->hydrate($data);
+            $done = $this->CourseORM->create($course);
             if($done) header('Location: /');
         }
 

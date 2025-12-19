@@ -2,11 +2,8 @@
 
 namespace Core\Routes;
 
+use Container\Container;
 use Exception;
-use Reflection;
-use ReflectionClass;
-use Repository\CourseRepository;
-use Repository\SectionRepository;
 
 class Router{
     private static array $routes = [];
@@ -52,7 +49,7 @@ class Router{
         $ClassAndMethod = explode("::", $call);
         $Controller = $ClassAndMethod[0];
         $method= $ClassAndMethod[1];
-
-        call_user_func([new $Controller(new CourseRepository, new SectionRepository), $method], $param);
+        
+        call_user_func([Container::get($Controller), $method], $param);
     }
 }

@@ -2,7 +2,11 @@
 
 namespace Repository;
 use Db\Database;
+use Model\Course;
+use Model\Section;
 use PDO;
+use Reflection;
+use ReflectionClass;
 
 class EntityManager{
     protected PDO $pdo;
@@ -13,13 +17,15 @@ class EntityManager{
         $this->pdo = Database::getConnnection();
     }
 
-    public function findById(int $id): ?object {
+    public function findById(object $entity): ?object {
         $stm = $this->pdo->prepare("SELECT * FROM " . static::$table . " WHERE id = :id ");
-        $stm->execute(["id" => $id]);
+        $stm->execute(["id" => $entity->id]);
         $res = $stm->fetch();
-        $class = static::$entityClass;
-        return $res ? new $class($res) : null;
-        
+        if($res){
+            $entity->hydrate($res);
+            return $entity;
+        }
+        return null; 
     }
 
     public function findAll(): ?array{
@@ -29,63 +35,82 @@ class EntityManager{
         $class = static::$entityClass;
         $res = [];
         foreach($results as $data){
-            $res = [...$res, new $class($data)];
+            $row = new $class($data['id']);
+            $row->hydrate($data);
+            $res = [...$res, $row];
         }
         return $res;
     }
     
-    public function findByForeignKey(int $id){
-        // defiined in section orm child
-        return null;
-    }
-    
-    public function create(array $data): bool{
-        unset($data['id'], $data['created_at'], $data['updated_at']);
+    public function create(object $entity): bool{
+        $keys = [];
+        $values = [];
 
-        $fields = implode(", ", array_keys($data));
-        $placeholders = implode(", ", array_map(function($item){ return ":$item";}, array_keys($data)));
-        $request = "INSERT INTO " . static::$table . " ( ". $fields ." ) VALUES ( ". $placeholders ." )";
+        $reflection = new ReflectionClass($entity);
+        $properties = $reflection->getProperties();
+        foreach($properties as $prop){
+            $name = $prop->getName();
+            if (in_array($name, ['id', 'createdAt', 'updatedAt'], true)) continue;
+            $keys[] = $name;
+            $values[$name] = $prop->getValue($entity);
+        }
 
-        $stm = $this->pdo->prepare($request);
-        $res = $stm->execute($data);
-        return $res;
+        $fields = "( " . implode(", ", $keys) . " )";
+        $placeholders = "( :" . implode(", :", $keys) . " )";
 
+        $stm = $this->pdo->prepare("INSERT INTO " . static::$table . " " . $fields . " VALUES " . $placeholders);
+        var_dump($stm);
+        $results = $stm->execute($values);
+        return $results;
     }
 
     public function createMany(array $data): bool{
-        $res = false;
-        foreach($data as $datum){
-            $fields = implode(", ", array_keys($datum));
-            $placeholders = implode(", ", array_map(function($item){ return ":$item";}, array_keys($datum)));
-            $request = "INSERT INTO " . static::$table . " ( ". $fields ." ) VALUES ( ". $placeholders ." )";
+        $keys = [];
+        $values = [];
+        foreach($data as $entity){
+            $reflection = new ReflectionClass($entity);
+            $properties = $reflection->getProperties();
 
-            $stm = $this->pdo->prepare($request);
-            $res = $stm->execute($datum);
+            foreach($properties as $prop){
+                $name = $prop->getName();
+                if (in_array($name, ['id', 'createdAt', 'updatedAt'], true)) continue;
+                $keys[] = $name;
+                $values[$name] = $prop->getValue($entity);
+            }
+
+            $fields = "( " . implode(", ", $keys) . " )";
+            $placeholders = "( :" . implode(", :", $keys) . " )";
+            
+            $stm = $this->pdo->prepare("INSERT INTO " . static::$table . " " . $fields . " VALUES " . $placeholders);
+            $res = $stm->execute($values);
         }
         return $res;
     }
     
-    public function update(array $data): bool{
-        $id = $data['id'];
-        unset($data['id'], $data['created_at'], $data['updated_at'], $data['course_id']);
-        $keys = array_keys($data);
-        $updateFields = [];
+    public function update(object $entity): bool{
+        $values = [];
+        $placeholders = [];
 
-        foreach($keys as $key){
-            $updateFields = [...$updateFields, "$key = :$key"];
+        $reflection = new ReflectionClass($entity);
+        $properties = $reflection->getProperties();
+
+        foreach($properties as $prop){
+            $name = $prop->getName();
+            if (in_array($name, ['id', 'createdAt', 'updatedAt'], true)) continue;
+            $values[$prop->getName()] = $prop->getValue($entity);
+            $placeholders[] = "$name = :$name";
         }
 
-        $data = [...$data, "id" => $id];
-        $request = "UPDATE " . static::$table . " SET " . implode(", ",$updateFields) . " WHERE id = :id";
-        
-        $stm = $this->pdo->prepare($request);
-        $res = $stm->execute($data);
+        $values['id'] = $entity->id;
+
+        $stm = $this->pdo->prepare("UPDATE " . static::$table . " SET " . implode(", ", $placeholders) . " WHERE id = :id");
+        $res = $stm->execute($values);
         return $res;
     }
     
-    public function delete(int $id): bool{
+    public function delete(object $entity): bool{
         $stm = $this->pdo->prepare("DELETE FROM " . static::$table . " WHERE id = :id");
-        $res = $stm->execute(["id" => $id]);
+        $res = $stm->execute(["id" => $entity->id]);
         return $res;
     }
 }

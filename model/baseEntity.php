@@ -3,10 +3,10 @@
 namespace Model;
 
     class BaseEntity{ 
-        public int $id;
+        public ?int $id;
         public string $title;
-        public string $createdAt;
-        public string $updatedAt;
+        public ?string $createdAt = null;
+        public ?string $updatedAt = null;
 
         public function castDate($updatedAtDate = false){            
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

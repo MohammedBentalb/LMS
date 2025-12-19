@@ -8,14 +8,18 @@ class Course extends BaseEntity{
     public string $image;
     public string $level;
     public string $type;
-    public function __construct(array $data) {
-        $this->id =  $data['id'];
-        $this->title =  $data['title'];
+
+    public  function __construct(?int $id = null) {
+        $this->id = $id;
+    }
+    
+    public function hydrate(array $data) {
+        $this->title = $data['title'];
         $this->description =  $data["description"];
         $this->level=  $data["level"];
-        $this->type=  $data["course_type"];
+        $this->type=  $data["type"];
         $this->image =  $data["image"];
-        $this->createdAt =  $data["created_at"];
+        $this->createdAt = $data["created_at"];
         $this->updatedAt = $data["updated_at"];
     }
 }
