@@ -2,7 +2,7 @@
 
 namespace Core\Routes;
 
-use Container\Container;
+use Service\Container;
 use Exception;
 
 class Router{
@@ -49,7 +49,6 @@ class Router{
         $ClassAndMethod = explode("::", $call);
         $Controller = $ClassAndMethod[0];
         $method= $ClassAndMethod[1];
-        
         call_user_func([Container::get($Controller), $method], $param);
     }
 }
