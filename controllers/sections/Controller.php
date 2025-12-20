@@ -29,7 +29,7 @@ class Controller{
                 $data = ["courseId" => $course_id, "title" => $titles[$i], "content" => $contents[$i], "position" => (int) $positions[$i]];
                 $section = new Section($data);
                 $good = $this->SectionORM->create($section);
-                var_dump($good);
+                var_dump("i ran");
             }catch(PDOException $e){
                 if($e->errorInfo[1] === 1062){
                     $courseSections = $this->SectionORM->findByForeignKey($course_id);
@@ -50,8 +50,8 @@ class Controller{
         }
         $title = $_POST['section-title'][0];
         $content = $_POST['section-content'][0];
-        $section = new Section(["title" => $title, "content" => $content, "courseId" => $section->courseId, "position" => $section->position]);
-        $done = $this->SectionORM->update($se);
+        $section = new Section(["id" => $sectionExist->id ,"title" => $title, "content" => $content, "courseId" => $sectionExist->courseId, "position" => $sectionExist->position]);
+        $done = $this->SectionORM->update($section);
         if($done) header("Location: /courses/detail/$section->courseId");
     }
 

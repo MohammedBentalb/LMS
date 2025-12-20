@@ -2,15 +2,17 @@
 
 namespace Repository;
 use Db\Database;
+use FFI\Exception;
 use PDO;
 use ReflectionClass;
+use Validation\EntityValidator;
 
 class EntityManager{
     protected PDO $pdo;
     protected static string $table;
     protected static string $entityClass;
     
-    public function __construct() {
+    public function __construct(protected EntityValidator $entitiyValidator) {
         $this->pdo = Database::getConnnection();
     }
 
@@ -37,65 +39,34 @@ class EntityManager{
         return $res;
     }
     
-    public function create(object $entity): bool{
-        $keys = [];
-        $values = [];
-
-        $reflection = new ReflectionClass($entity);
-        $properties = $reflection->getProperties();
-        foreach($properties as $prop){
-            $name = $prop->getName();
-            if (in_array($name, ['id', 'createdAt', 'updatedAt'], true)) continue;
-            $keys[] = $name;
-            $values[$name] = $prop->getValue($entity);
-        }
-
-        $fields = "( " . implode(", ", $keys) . " )";
-        $placeholders = "( :" . implode(", :", $keys) . " )";
-
-        $stm = $this->pdo->prepare("INSERT INTO " . static::$table . " " . $fields . " VALUES " . $placeholders);
+    public function create(object $entity){
+        ["fields" => $fields, "values" => $values, "placeholders" => $placeholders] = $this->entitiyValidator->validator($entity);
+       
+        $stm = $this->pdo->prepare("INSERT INTO " . static::$table . " ( " . implode(", ", $fields) . " ) VALUES ( " . implode(", ", $placeholders) . " )");
         $results = $stm->execute($values);
         return $results;
     }
 
     public function createMany(array $data): bool{
-        $keys = [];
-        $values = [];
+        $res = true;
         foreach($data as $entity){
-            $reflection = new ReflectionClass($entity);
-            $properties = $reflection->getProperties();
-
-            foreach($properties as $prop){
-                $name = $prop->getName();
-                if (in_array($name, ['id', 'createdAt', 'updatedAt'], true)) continue;
-                $keys[] = $name;
-                $values[$name] = $prop->getValue($entity);
-            }
-
-            $fields = "( " . implode(", ", $keys) . " )";
-            $placeholders = "( :" . implode(", :", $keys) . " )";
-            
-            $stm = $this->pdo->prepare("INSERT INTO " . static::$table . " " . $fields . " VALUES " . $placeholders);
+            if(!$res) throw new Exception("something wrong happened in create many EntityManager");
+            ["fields" => $fields, "values" => $values, "placeholders" => $placeholders] = $this->entitiyValidator->validator($entity);            
+            $stm = $this->pdo->prepare("INSERT INTO " . static::$table . " ( " . implode(", ", $fields) . " ) VALUES ( " . implode(", ", $placeholders) . " )");
             $res = $stm->execute($values);
         }
         return $res;
     }
     
     public function update(object $entity): bool{
-        $values = [];
-        $placeholders = [];
-
-        $reflection = new ReflectionClass($entity);
-        $properties = $reflection->getProperties();
-
-        foreach($properties as $prop){
-            $name = $prop->getName();
-            if (in_array($name, ['createdAt', 'updatedAt'], true)) continue;
-            $values[$prop->getName()] = $prop->getValue($entity);
-            $placeholders[] = "$name = :$name";
+        ["fields" => $fields, "values" => $values, "placeholders" => $placeholders] = $this->entitiyValidator->validator($entity);
+        $group = [];
+        foreach($values as $key => $value){
+            $group[] =  "$key = :$key";
         }
 
-        $stm = $this->pdo->prepare("UPDATE " . static::$table . " SET " . implode(", ", $placeholders) . " WHERE id = :id");
+        $stm = $this->pdo->prepare("UPDATE " . static::$table . " SET " . implode(", ", $group) . " WHERE id = :id");
+        var_dump($values);
         $res = $stm->execute($values);
         return $res;
     }

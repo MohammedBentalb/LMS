@@ -2,12 +2,19 @@
 
 namespace Model;
 use Model\BaseEntity;
+use Validation\Attributes\Required;
+use Validation\Attributes\Preserve;
 
 class Section extends BaseEntity{ 
+    #[Preserve]
+    #[Required]
     public int $courseId;
+    #[Preserve]
+    #[Required]
     public string $content;
+    #[Preserve]
+    #[Required]
     public int $position;
-
 
     public  function __construct(array $data) {
         $this->id = $data['id'];

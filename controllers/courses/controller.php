@@ -133,7 +133,7 @@ class Controller{
         $type = htmlspecialchars($_POST['course-type']);
 
         if(move_uploaded_file($_FILES['course-image']['tmp_name'], __DIR__ . "/../../public/images/" . $newName)){
-            $data = ["title" => $title, "description" => $description, "level" => $level, "course_type" => $type, "image" => $newName];
+            $data = ["title" => $title, "description" => $description, "level" => $level, "type" => $type, "image" => $newName];
             $course = new Course($data);
             $done = $this->CourseORM->create($course);
             if($done) header('Location: /');

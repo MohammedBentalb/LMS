@@ -2,13 +2,19 @@
 
 namespace Model;
 
-    class BaseEntity{ 
+use Validation\Attributes\Preserve;
+use Validation\Attributes\Required;
+
+    class BaseEntity{
+        #[Preserve ] 
         public ?int $id;
-        public string $title;
+        #[Preserve]
+        #[Required]
+        public string $title; 
         public ?string $createdAt = null;
         public ?string $updatedAt = null;
 
-        public function castDate($updatedAtDate = false){            
+        public function castDate($updatedAtDate = false){
             $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
             $puredate = explode(" ", $updatedAtDate ? $this->createdAt : $this->updatedAt)[0];
@@ -17,5 +23,8 @@ namespace Model;
             $year = explode('-', $puredate)[0];
 
             return $updatedAtDate ? "lastly updated on {$months[$month - 1]} $day, $year" : "created on {$months[$month - 1]} $day, $year";
+        }
+        public function getId(){
+            return $this->id;
         }
     }
