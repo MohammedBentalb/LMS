@@ -36,5 +36,5 @@ class Resolver{
             throw new ErrorException("Could not resolve this {$type->getName()}");
         }
         return $ref->newInstanceArgs($args);
-    }   
+    }  
 }

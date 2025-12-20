@@ -19,7 +19,7 @@ class Controller{
         
         $course = null;
         if(is_numeric($course_id)){
-            $course = $this->CourseORM->findById(new Course($course_id));
+            $course = $this->CourseORM->findById($course_id);
             if(empty($course)) {
                 require_once('./views/error/error.php');
                 return;
@@ -31,7 +31,7 @@ class Controller{
     }
 
     public function courseEdit(?int $course_id){
-        $courseExist = $this->CourseORM->findById(new Course($course_id));
+        $courseExist = $this->CourseORM->findById($course_id);
 
         if(!$courseExist){
             require_once('./views/error/error.php');
@@ -71,8 +71,7 @@ class Controller{
         $type = htmlspecialchars($_POST['course-type']);
 
         $data = ["id" => $course_id, "title" => $title, "description" => $description, "level" => $level, "type" => $type, "image" => $image];
-        $newCourse = new Course($course_id);
-        $newCourse->hydrate($data);
+        $newCourse = new Course($data);
         $done = $this->CourseORM->update($newCourse);
         if(!$done){
             require_once('./views/error/error.php');
@@ -82,17 +81,17 @@ class Controller{
     }
     
     public function courseDetails(?int $course_id){
-        $course = $this->CourseORM->findById(new Course($course_id)) ?: [];
+        $course = $this->CourseORM->findById($course_id) ?: [];
         if(!$course){
             require_once('./views/error/error.php');
             return;
         }
-        $courseSections = $this->SectionORM->findByForeignKey($course);
+        $courseSections = $this->SectionORM->findByForeignKey($course_id);
         require_once("./views/courses/course_details.php");
     }
     
     public function courseDelete(?int $course_id){
-        $courseExist = $this->CourseORM->findById(new Course($course_id));
+        $courseExist = $this->CourseORM->findById($course_id);
          
          if(!$courseExist){
              require_once('./views/error/error.php');
@@ -100,7 +99,7 @@ class Controller{
             }
             
             unlink('./public/images/' . $courseExist->image);
-            $this->CourseORM->delete($courseExist);
+            $this->CourseORM->delete($course_id);
             header('Location: /');
     }
 
@@ -135,8 +134,7 @@ class Controller{
 
         if(move_uploaded_file($_FILES['course-image']['tmp_name'], __DIR__ . "/../../public/images/" . $newName)){
             $data = ["title" => $title, "description" => $description, "level" => $level, "course_type" => $type, "image" => $newName];
-            $course = new Course();
-            $course->hydrate($data);
+            $course = new Course($data);
             $done = $this->CourseORM->create($course);
             if($done) header('Location: /');
         }

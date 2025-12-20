@@ -16,9 +16,7 @@ const fakeFields = [];
 const positions = document.querySelector(".positions").textContent;
 const params = new URLSearchParams(location.search)
 
-const editMode = document.querySelector(".EditMode");
-
-console.log(editMode);
+const editMode = document.querySelector(".EditMode").textContent;
 
 originalfileds.forEach((field) => {
   fakeFields.push(field);
@@ -40,7 +38,7 @@ let newSectionsCounter = 0;
 
 watchElementAndValidate(sectionTitle);
 watchElementAndValidate(sectionContent);
-(!editMode) === null ? watchPositionAndValidate(sectionPosition, state) : null;
+!editMode ? watchPositionAndValidate(sectionPosition, state) : null;
 
 console.log(params.get("section_id") === null);
 addSectionButton.addEventListener("click", function () {
@@ -68,7 +66,7 @@ sectionForm.addEventListener("submit", function (e) {
   e.preventDefault();
   state.errorArray = validateAndShowError(sectionTitle, state.errorArray);
   state.errorArray = validateAndShowError(sectionContent, state.errorArray);
-  if(!editMode === null){
+  if(!editMode){
     const { errArray } = validatingPosition(sectionPosition, state.errorArray, state.positionArray);
     state.errorArray = [...errArray];
   }

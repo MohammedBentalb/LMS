@@ -2,10 +2,7 @@
 
 namespace Repository;
 use Db\Database;
-use Model\Course;
-use Model\Section;
 use PDO;
-use Reflection;
 use ReflectionClass;
 
 class EntityManager{
@@ -17,12 +14,12 @@ class EntityManager{
         $this->pdo = Database::getConnnection();
     }
 
-    public function findById(object $entity): ?object {
+    public function findById(int $id): ?object {
         $stm = $this->pdo->prepare("SELECT * FROM " . static::$table . " WHERE id = :id ");
-        $stm->execute(["id" => $entity->id]);
+        $stm->execute(["id" => $id]);
         $res = $stm->fetch();
         if($res){
-            $entity->hydrate($res);
+            $entity = new static::$entityClass($res);
             return $entity;
         }
         return null; 
@@ -32,11 +29,9 @@ class EntityManager{
         $stm = $this->pdo->prepare("SELECT * FROM " . static::$table);
         $stm->execute();
         $results = $stm->fetchAll();
-        $class = static::$entityClass;
         $res = [];
         foreach($results as $data){
-            $row = new $class($data['id']);
-            $row->hydrate($data);
+            $row = new Static::$entityClass($data);
             $res = [...$res, $row];
         }
         return $res;
@@ -59,7 +54,6 @@ class EntityManager{
         $placeholders = "( :" . implode(", :", $keys) . " )";
 
         $stm = $this->pdo->prepare("INSERT INTO " . static::$table . " " . $fields . " VALUES " . $placeholders);
-        var_dump($stm);
         $results = $stm->execute($values);
         return $results;
     }
@@ -96,21 +90,19 @@ class EntityManager{
 
         foreach($properties as $prop){
             $name = $prop->getName();
-            if (in_array($name, ['id', 'createdAt', 'updatedAt'], true)) continue;
+            if (in_array($name, ['createdAt', 'updatedAt'], true)) continue;
             $values[$prop->getName()] = $prop->getValue($entity);
             $placeholders[] = "$name = :$name";
         }
-
-        $values['id'] = $entity->id;
 
         $stm = $this->pdo->prepare("UPDATE " . static::$table . " SET " . implode(", ", $placeholders) . " WHERE id = :id");
         $res = $stm->execute($values);
         return $res;
     }
     
-    public function delete(object $entity): bool{
+    public function delete(int $id): bool{
         $stm = $this->pdo->prepare("DELETE FROM " . static::$table . " WHERE id = :id");
-        $res = $stm->execute(["id" => $entity->id]);
+        $res = $stm->execute(["id" => $id]);
         return $res;
     }
 }

@@ -5,4 +5,4 @@
     </button>
 </section>
 
-<script src="../../js/back.js" defer></script>
+<script src="/js/back.js" defer></script>

@@ -13,7 +13,7 @@
         include_once("./views/components/Back.php");
     ?>
     <section class="parent-c">
-    <p class="EditMode is-hidden" aria-hidden="true"><?= $editMode ?></p>
+    <p class="EditMode is-hidden" aria-hidden="true"><?= $editMode ?? null ?></p>
     <h1 class="form-title max-content"><?= isset($editMode) && $editMode ? "Refine your course" : "Create the course you always wanted" ?></h1>
     <p class="form-sub-title max-content"><?= isset($editMode) && $editMode ? "Keep your knowledge fresh and up to date" : "Share your knowledge on a large scale" ?></p>
     <form action="<?= isset($editMode) && $editMode ? "/courses/edit/$course_id" : "/courses/create" ?>" method="POST" class="course-form" enctype="multipart/form-data">
