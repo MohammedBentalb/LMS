@@ -34,7 +34,9 @@
                     <div class="stat-d"><span><img src="../../assets/time.png" alt=""></span>13h</div>
                     <div class="stat-d"><span><img src="../../assets/star.png" alt=""></span> 4.5</div>
                 </div>
-                <button>start the course</button>
+                <?php if(!$EnrolledIn) { ?><a href="/courses/enroll/<?= $course->id ?>">start the course</a> <?php } else { ?>
+                    <a class="enrolled" href="/courses/disenroll/<?= $enrollment->id ?>">Enrolled</a>
+                <?php }?>
             </div>
         </div>
         <div class="max-content course-actions">

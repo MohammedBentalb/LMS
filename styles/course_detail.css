@@ -116,7 +116,10 @@
     brightness(112%) contrast(100%);
 }
 
-.detail-text > button {
+.detail-text > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 40px;
   background-color: #733aff;
   border: 2px solid #733aff;
@@ -129,9 +132,20 @@
   cursor: pointer;
 }
 
-.detail-text > button:hover {
+.detail-text > a:hover {
   color: #733aff;
   background-color: white;
+}
+
+.enrolled{
+  background-color: transparent !important;
+  color: green!important;
+  border: 2px solid green !important;
+}
+
+.enrolled:hover{
+  background-color: green !important;
+  color: white !important;
 }
 
 /**/

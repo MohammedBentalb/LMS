@@ -2,7 +2,6 @@
 
 namespace controllers\sections;
 
-use Model\Course;
 use Model\Section;
 use PDOException;
 use Repository\CourseRepository;

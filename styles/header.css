@@ -23,7 +23,7 @@ header > div > div > div {
   gap: 0.3rem;
 }
 
-header button {
+header div div button {
   display: flex;
   align-items: center;
   background-color: transparent;
@@ -82,3 +82,4 @@ header button img {
     gap: 1rem;
   }
 }
+

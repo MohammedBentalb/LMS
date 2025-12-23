@@ -2,10 +2,8 @@
 
 namespace Repository;
 
-use Model\Course;
 use Repository\EntityManager;
 use Model\Section;
-use Validation\EntityValidator;
 
 class SectionRepository extends EntityManager{
     protected static string $table = 'sections';

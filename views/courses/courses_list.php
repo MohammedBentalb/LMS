@@ -1,5 +1,6 @@
         <ul class="courses-list max-content">
             <?php
+            if(!isset($courses)) return;
             foreach($courses as $course){  ?>
             <li class="">
                 <a href="/courses/detail/<?="{$course->id}"?>" class="course">

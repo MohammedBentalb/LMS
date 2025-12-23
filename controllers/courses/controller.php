@@ -3,12 +3,16 @@
 namespace Controllers\Courses;
 
 use Model\Course;
+use Model\Enrollment;
 use Repository\CourseRepository;
+use Repository\EnrollmentsRepo;
 use Repository\SectionRepository;
+use Repository\userRepository;
+use Service\Session;
 
 class Controller{
 
-    public function __construct(private CourseRepository $CourseORM, private SectionRepository $SectionORM) {}
+    public function __construct(private CourseRepository $CourseORM, private SectionRepository $SectionORM, private Session $session, private userRepository $user, private EnrollmentsRepo $enrollmentORM) {}
 
     public  function index(){
         $courses = $this->CourseORM->findAll();
@@ -30,7 +34,7 @@ class Controller{
         require_once('./views/courses/course_form.php');
     }
 
-    public function courseEdit(?int $course_id){
+    public function courseEdit(int $course_id){
         $courseExist = $this->CourseORM->findById($course_id);
 
         if(!$courseExist){
@@ -80,17 +84,19 @@ class Controller{
         header("location: /");
     }
     
-    public function courseDetails(?int $course_id){
+    public function courseDetails(int $course_id){
         $course = $this->CourseORM->findById($course_id) ?: [];
         if(!$course){
             require_once('./views/error/error.php');
             return;
         }
+        $enrollment = $this->enrollmentORM->isUserEnrolled($this->session->getUserId(), $course->id);
+        $EnrolledIn = $enrollment ? true : false;
         $courseSections = $this->SectionORM->findByForeignKey($course_id);
         require_once("./views/courses/course_details.php");
     }
     
-    public function courseDelete(?int $course_id){
+    public function courseDelete(int $course_id){
         $courseExist = $this->CourseORM->findById($course_id);
          
          if(!$courseExist){
@@ -140,5 +146,24 @@ class Controller{
         }
 
         require_once('./views/error/error.php');
+    }
+
+    public function courseEnrollment(){
+        $user = $this->session->getUser();
+        $courses = $this->CourseORM->findCoursesByUserEmail($user->email);
+        require_once('./views/courses/my_courses.php');
+    }
+
+    public function courseEnroll(int $course_id ){
+        $userId = $this->session->getUserId();
+        $enrollment = new Enrollment(["id" => null, "userId" => $userId, "courseId" => $course_id]);
+        $this->enrollmentORM->create($enrollment);
+        header('Location: /courses/myCourses');
+    }
+
+    public function courseDisenroll(int $enrollment_id ){
+        $userId = $this->session->getUserId();
+        $enrollment = $this->enrollmentORM->delete($enrollment_id);
+        header("Location: {$_SERVER['HTTP_REFERER']}");
     }
 }

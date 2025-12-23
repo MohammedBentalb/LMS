@@ -1,7 +1,7 @@
-export function watchElementAndValidate(element) {
+export function watchElementAndValidate(element, errArray = []) {
   if (!element) return;
   element.addEventListener("input", () => {
-    validateAndShowError(element);
+    validateAndShowError(element, errArray);
   });
 }
 
@@ -9,11 +9,12 @@ export function validateAndShowError(element, errorArr) {
   const fieldName = element.id.split("-")[1];
   const result = validatingFormInput(element);
   showFieldError(fieldName, result);
-  if (!errorArr) return;
   if (result)
     return errorArr.includes(fieldName) ? errorArr : [...errorArr, fieldName];
 
-  return errorArr.filter((e) => e !== fieldName);
+  return errorArr.includes(fieldName)
+    ? errorArr.filter((e) => e !== fieldName)
+    : errorArr;
 }
 
 export function validatingFormInput(element) {
@@ -38,6 +39,12 @@ export function validatingFormInput(element) {
     return "";
   }
   if (!element.value.trim()) return "field can not be empty";
+  if (element.type === "email") {
+    const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!EMAIL_REGEX.test(element.value.trim())) {
+      return "invalid email address";
+    }
+  }
   return "";
 }
 
@@ -46,7 +53,8 @@ export function showFieldError(fieldName, msg) {
   const fieldError = document.querySelector(`p[data-error-name=${fieldName}]`);
   const targetField =
     document.querySelector(`#course-${fieldName}`) ??
-    document.querySelector(`#section-${fieldName}`);
+    document.querySelector(`#section-${fieldName}`) ??
+    document.querySelector(`#user-${fieldName}`);
   if (!fieldError || !targetField) return;
 
   fieldError.classList.toggle("is-hidden", msg.trim() == "");
@@ -80,33 +88,84 @@ export function editeValidatingImage(element) {
 }
 
 export function validatingPosition(element, errorArr, positionArray) {
-  if (!element || !positionArray || !errorArr) return ;
+  if (!element || !positionArray || !errorArr) return;
   const fieldName = element.id.split("-")[1];
   positionArray = positionArray.filter((p) => p.input !== element.id);
 
-  
-  if (Number(element.value.trim()) === 0 || isNaN(Number(element.value.trim()))) {
+  if (
+    Number(element.value.trim()) === 0 ||
+    isNaN(Number(element.value.trim()))
+  ) {
     showFieldError(fieldName, "Invalid position; must be greater than 0");
-    return {errArray: errorArr.includes(fieldName) ? errorArr : [...errorArr, fieldName], positionArray};
+    return {
+      errArray: errorArr.includes(fieldName)
+        ? errorArr
+        : [...errorArr, fieldName],
+      positionArray,
+    };
   }
-  
-  const foundDouble = positionArray.find(p => p.position === element.value.trim())
 
-  if(foundDouble){
+  const foundDouble = positionArray.find(
+    (p) => p.position === element.value.trim()
+  );
+
+  if (foundDouble) {
     showFieldError(fieldName, `position taken: ${element.value.trim()}`);
-    return {errArray: errorArr.includes(fieldName) ? errorArr : [...errorArr, fieldName], positionArray};
+    return {
+      errArray: errorArr.includes(fieldName)
+        ? errorArr
+        : [...errorArr, fieldName],
+      positionArray,
+    };
   }
 
   showFieldError(fieldName, "");
-  return { errArray: errorArr.filter((e) => e != fieldName), positionArray : [...positionArray, {input: element.id, position: element.value.trim()}]};
+  return {
+    errArray: errorArr.filter((e) => e != fieldName),
+    positionArray: [
+      ...positionArray,
+      { input: element.id, position: element.value.trim() },
+    ],
+  };
 }
-
 
 export function watchPositionAndValidate(element, state) {
   if (!element) return;
-    element.addEventListener("input", () => {
-      const result = validatingPosition( element, state.errorArray, state.positionArray);
+  element.addEventListener("input", () => {
+    const result = validatingPosition(
+      element,
+      state.errorArray,
+      state.positionArray
+    );
     state.errorArray = result.errArray;
     state.positionArray = result.positionArray;
   });
+}
+
+export function validatePasswordMatch(password, passwordMatch, errorArr) {
+  const fieldName = passwordMatch.id.split("-")[1];
+
+  if (!password || !password.value.trim()) {
+    showFieldError(fieldName, "fill password first");
+    return errorArr.includes(fieldName)
+      ? errorArr
+      : (errorArr = [...errorArr, fieldName]);
+  }
+
+  if (!passwordMatch.value.trim()) {
+    showFieldError(fieldName, "confirmation Required");
+    return errorArr.includes(fieldName)
+      ? errorArr
+      : (errorArr = [...errorArr, fieldName]);
+  }
+
+  if (password.value.trim() !== passwordMatch.value.trim()) {
+    showFieldError(fieldName, "passwords don't match");
+    return errorArr.includes(fieldName)
+      ? errorArr
+      : (errorArr = [...errorArr, fieldName]);
+  }
+
+  showFieldError(fieldName, "");
+  return errorArr.filter((e) => e !== fieldName);
 }
